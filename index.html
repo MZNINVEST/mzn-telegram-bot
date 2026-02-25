@@ -82,13 +82,41 @@
     border-color: rgba(88,166,255,0.3);
   }
   .arrow { color: var(--muted); font-size: 18px; }
+  .subscribe-banner {
+    background: linear-gradient(135deg, #1a2332 0%, #1c2d3a 100%);
+    border: 1px solid #2d4a6a;
+    border-radius: 14px;
+    padding: 28px 32px;
+    text-align: center;
+    margin-top: 48px;
+  }
+  .subscribe-banner p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .subscribe-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #229ed9;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .subscribe-btn:hover { background: #1a8bbf; transform: translateY(-2px); }
+  .subscribe-btn svg { flex-shrink: 0; }
   footer {
     text-align: center;
     color: var(--muted);
     font-size: 12px;
-    padding: 40px 20px;
+    padding: 32px 20px;
     border-top: 1px solid var(--border);
-    margin-top: 60px;
+    margin-top: 40px;
   }
   footer a { color: var(--accent); text-decoration: none; }
 </style>
@@ -123,9 +151,19 @@
   </div>
 </main>
 
+<div class="subscribe-banner" style="max-width:900px;margin:48px auto 0;padding-left:20px;padding-right:20px;">
+  <p>Получайте торговые идеи, разборы опционных стратегий и аналитику раньше всех</p>
+  <a class="subscribe-btn" href="https://t.me/tribute/app?startapp=sei3" target="_blank">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.67 7.86c-.12.55-.46.68-.93.42l-2.57-1.9-1.24 1.19c-.14.14-.26.26-.53.26l.19-2.66 4.84-4.37c.21-.19-.05-.29-.32-.1L7.82 14.37l-2.52-.79c-.55-.17-.56-.55.12-.81l9.85-3.8c.46-.17.86.11.37.83z" fill="white"/>
+    </svg>
+    Подписаться на закрытый канал
+  </a>
+</div>
+
 <footer>
   Материал носит исключительно образовательный характер и не является инвестиционной рекомендацией.<br>
-  <a href="https://t.me/mzninvest" target="_blank">Telegram-канал</a> · © 2026 MZNInvest
+  © 2026 MZNInvest
 </footer>
 
 </body>
