@@ -27,12 +27,7 @@
       padding: 24px 16px 48px;
     }
     .container { max-width: 860px; margin: 0 auto; }
-
-    /* ── Header ── */
-    .header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 28px;
-    }
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
     .brand { display: flex; align-items: center; gap: 10px; }
     .brand-dot {
       width: 36px; height: 36px; border-radius: 50%;
@@ -43,22 +38,15 @@
     .brand-name { font-size: 18px; font-weight: 700; letter-spacing: .5px; }
     .badge-date {
       background: var(--card2); border: 1px solid var(--border);
-      border-radius: 20px; padding: 6px 14px;
-      font-size: 13px; color: var(--muted);
+      border-radius: 20px; padding: 6px 14px; font-size: 13px; color: var(--muted);
     }
-
-    /* ── Ticker hero ── */
     .hero {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px 28px;
-      margin-bottom: 18px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px 28px; margin-bottom: 18px;
       position: relative; overflow: hidden;
     }
     .hero::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
       background: linear-gradient(90deg, var(--accent), var(--accent2));
     }
     .hero-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
@@ -84,34 +72,23 @@
       background: rgba(0,229,160,.15); color: var(--accent);
       padding: 3px 10px; border-radius: 6px;
     }
-    .price-target-row {
-      margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;
-    }
+    .price-target-row { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
     .pt-chip {
       background: var(--card2); border: 1px solid var(--border);
       border-radius: 8px; padding: 6px 14px; font-size: 13px;
     }
     .pt-chip span { color: var(--accent); font-weight: 700; }
-
-    /* ── Thesis ── */
     .thesis {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 20px 24px;
-      margin-bottom: 18px;
+      border-radius: var(--radius); padding: 20px 24px; margin-bottom: 18px;
     }
     .section-title {
       font-size: 12px; font-weight: 700; letter-spacing: 1.2px;
       text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
     }
     .thesis-points { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .thesis-points li {
-      display: flex; gap: 10px; font-size: 14px; line-height: 1.55;
-    }
-    .thesis-points li::before {
-      content: '▸'; color: var(--accent); flex-shrink: 0; margin-top: 1px;
-    }
-
-    /* ── Stats grid ── */
+    .thesis-points li { display: flex; gap: 10px; font-size: 14px; line-height: 1.55; }
+    .thesis-points li::before { content: '▸'; color: var(--accent); flex-shrink: 0; margin-top: 1px; }
     .stats-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 12px; margin-bottom: 18px;
@@ -126,8 +103,6 @@
     .green { color: var(--accent); }
     .purple { color: #a78bfa; }
     .yellow { color: var(--yellow); }
-
-    /* ── Tabs ── */
     .tabs-wrap { margin-bottom: 18px; }
     .tabs {
       display: flex; gap: 4px;
@@ -139,14 +114,9 @@
       background: transparent; color: var(--muted);
       font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s;
     }
-    .tab-btn.active {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #fff;
-    }
+    .tab-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
-
-    /* ── Calculator ── */
     .calc-card {
       background: var(--card); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 22px 24px;
@@ -176,8 +146,7 @@
     }
     .calc-btn:hover { opacity: .9; }
     .results-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 10px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;
     }
     .result-box {
       background: var(--card2); border: 1px solid var(--border);
@@ -190,16 +159,12 @@
     .result-val.neu { color: var(--yellow); }
     .payoff-bar-wrap { margin-top: 18px; }
     .payoff-label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
-    .payoff-bar-bg {
-      background: var(--card2); border-radius: 6px; height: 10px; overflow: hidden;
-    }
+    .payoff-bar-bg { background: var(--card2); border-radius: 6px; height: 10px; overflow: hidden; }
     .payoff-bar-fill {
       height: 100%; border-radius: 6px;
       background: linear-gradient(90deg, var(--accent), var(--accent2));
       transition: width .5s ease;
     }
-
-    /* ── Risk block ── */
     .risk-section {
       background: var(--card); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 20px 24px; margin-bottom: 18px;
@@ -207,29 +172,27 @@
     .risk-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
     .risk-row:last-child { border-bottom: none; }
     .risk-name { font-size: 14px; color: var(--muted); }
-    .risk-dot {
-      width: 10px; height: 10px; border-radius: 50%; margin-right: 8px;
-      display: inline-block;
-    }
+    .risk-dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; display: inline-block; }
     .risk-level { display: flex; align-items: center; font-size: 14px; font-weight: 600; }
-
-    /* ── Footer ── */
-    .footer {
-      margin-top: 28px; text-align: center;
-      font-size: 12px; color: var(--muted); line-height: 1.7;
-    }
+    .footer { margin-top: 28px; text-align: center; font-size: 12px; color: var(--muted); line-height: 1.7; }
     .footer a { color: var(--accent); text-decoration: none; }
-
-    @media (max-width: 500px) {
-      .price-current { font-size: 32px; }
-      .hero-top { gap: 10px; }
-    }
+    @media (max-width: 500px) { .price-current { font-size: 32px; } .hero-top { gap: 10px; } }
   </style>
 </head>
 <body>
-<div class="container">
 
-  <!-- Header -->
+<!-- TOP BACK NAV -->
+<nav style="background:#161b26;border-bottom:1px solid #2a3447;padding:0 20px;height:50px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200;">
+  <a href="../index.html" style="font-size:14px;font-weight:700;color:#00e5a0;text-decoration:none;flex-shrink:0;">MZNInvest</a>
+  <span style="color:#2a3447;">|</span>
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid #2a3447;color:#8896a5;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;" onmouseover="this.style.borderColor='#00e5a0';this.style.color='#00e5a0'" onmouseout="this.style.borderColor='#2a3447';this.style.color='#8896a5'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    На главную
+  </a>
+  <span style="color:#4a5568;font-size:12px;">/ Торговые идеи / NVDA</span>
+</nav>
+
+<div class="container">
   <div class="header">
     <div class="brand">
       <div class="brand-dot">M</div>
@@ -238,7 +201,6 @@
     <div class="badge-date">25 февраля 2026</div>
   </div>
 
-  <!-- Hero -->
   <div class="hero">
     <div class="hero-top">
       <div class="ticker-block">
@@ -262,7 +224,6 @@
     </div>
   </div>
 
-  <!-- Thesis -->
   <div class="thesis">
     <div class="section-title">Инвестиционный тезис</div>
     <ul class="thesis-points">
@@ -274,7 +235,6 @@
     </ul>
   </div>
 
-  <!-- Stats -->
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-label">Цена сейчас</div>
@@ -298,7 +258,6 @@
     </div>
   </div>
 
-  <!-- Calculators -->
   <div class="tabs-wrap">
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('bcs')">📈 Bull Call Spread</button>
@@ -306,350 +265,151 @@
       <button class="tab-btn" onclick="switchTab('stock')">🏦 Покупка акции</button>
     </div>
 
-    <!-- Bull Call Spread -->
     <div id="tab-bcs" class="tab-panel active">
       <div class="calc-card">
         <div class="calc-title">Bull Call Spread</div>
-        <div class="calc-desc">
-          Покупаем Call с более низким страйком, продаём Call с более высоким. Ограниченный риск, умеренный профит. Идеально когда ожидаем рост, но хотим снизить стоимость позиции.
-        </div>
+        <div class="calc-desc">Покупаем Call с более низким страйком, продаём Call с более высоким. Ограниченный риск, умеренный профит. Идеально когда ожидаем рост, но хотим снизить стоимость позиции.</div>
         <div class="inputs-grid">
-          <div class="inp-group">
-            <label>Текущая цена ($)</label>
-            <input type="number" id="bcs-spot" value="190.30" step="0.5" oninput="calcBCS()">
-          </div>
-          <div class="inp-group">
-            <label>Long Call страйк ($)</label>
-            <input type="number" id="bcs-k1" value="195" step="1" oninput="calcBCS()">
-          </div>
-          <div class="inp-group">
-            <label>Long Call премия ($)</label>
-            <input type="number" id="bcs-p1" value="8.50" step="0.1" oninput="calcBCS()">
-          </div>
-          <div class="inp-group">
-            <label>Short Call страйк ($)</label>
-            <input type="number" id="bcs-k2" value="220" step="1" oninput="calcBCS()">
-          </div>
-          <div class="inp-group">
-            <label>Short Call премия ($)</label>
-            <input type="number" id="bcs-p2" value="2.80" step="0.1" oninput="calcBCS()">
-          </div>
-          <div class="inp-group">
-            <label>Кол-во спредов</label>
-            <input type="number" id="bcs-qty" value="1" min="1" step="1" oninput="calcBCS()">
-          </div>
+          <div class="inp-group"><label>Текущая цена ($)</label><input type="number" id="bcs-spot" value="190.30" step="0.5" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Long Call страйк ($)</label><input type="number" id="bcs-k1" value="195" step="1" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Long Call премия ($)</label><input type="number" id="bcs-p1" value="8.50" step="0.1" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Short Call страйк ($)</label><input type="number" id="bcs-k2" value="220" step="1" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Short Call премия ($)</label><input type="number" id="bcs-p2" value="2.80" step="0.1" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Кол-во спредов</label><input type="number" id="bcs-qty" value="1" min="1" step="1" oninput="calcBCS()"></div>
         </div>
         <button class="calc-btn" onclick="calcBCS()">Рассчитать</button>
         <div class="results-grid">
-          <div class="result-box">
-            <div class="result-label">Чистый дебет</div>
-            <div class="result-val neg" id="bcs-debit">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">Точка безубытка</div>
-            <div class="result-val neu" id="bcs-be">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">Макс. прибыль</div>
-            <div class="result-val pos" id="bcs-maxp">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">Макс. убыток</div>
-            <div class="result-val neg" id="bcs-maxl">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">ROI</div>
-            <div class="result-val pos" id="bcs-roi">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">Risk/Reward</div>
-            <div class="result-val neu" id="bcs-rr">—</div>
-          </div>
+          <div class="result-box"><div class="result-label">Чистый дебет</div><div class="result-val neg" id="bcs-debit">—</div></div>
+          <div class="result-box"><div class="result-label">Точка безубытка</div><div class="result-val neu" id="bcs-be">—</div></div>
+          <div class="result-box"><div class="result-label">Макс. прибыль</div><div class="result-val pos" id="bcs-maxp">—</div></div>
+          <div class="result-box"><div class="result-label">Макс. убыток</div><div class="result-val neg" id="bcs-maxl">—</div></div>
+          <div class="result-box"><div class="result-label">ROI</div><div class="result-val pos" id="bcs-roi">—</div></div>
+          <div class="result-box"><div class="result-label">Risk/Reward</div><div class="result-val neu" id="bcs-rr">—</div></div>
         </div>
         <div class="payoff-bar-wrap" id="bcs-bar-wrap" style="display:none">
           <div class="payoff-label">Прогресс к макс. прибыли (текущая цена)</div>
-          <div class="payoff-bar-bg">
-            <div class="payoff-bar-fill" id="bcs-bar" style="width:0%"></div>
-          </div>
+          <div class="payoff-bar-bg"><div class="payoff-bar-fill" id="bcs-bar" style="width:0%"></div></div>
         </div>
       </div>
     </div>
 
-    <!-- Iron Condor -->
     <div id="tab-ic" class="tab-panel">
       <div class="calc-card">
         <div class="calc-title">Iron Condor</div>
-        <div class="calc-desc">
-          Нейтральная стратегия: продаём Call-спред и Put-спред одновременно. Зарабатываем на боковом движении и распаде времени. Для NVDA подходит в периоды низкой волатильности.
-        </div>
+        <div class="calc-desc">Нейтральная стратегия: продаём Call-спред и Put-спред одновременно. Зарабатываем на боковом движении и распаде времени. Для NVDA подходит в периоды низкой волатильности.</div>
         <div class="inputs-grid">
-          <div class="inp-group">
-            <label>Текущая цена ($)</label>
-            <input type="number" id="ic-spot" value="190.30" step="0.5" oninput="calcIC()">
-          </div>
-          <div class="inp-group">
-            <label>Long Put страйк ($)</label>
-            <input type="number" id="ic-lp" value="165" step="1" oninput="calcIC()">
-          </div>
-          <div class="inp-group">
-            <label>Short Put страйк ($)</label>
-            <input type="number" id="ic-sp" value="175" step="1" oninput="calcIC()">
-          </div>
-          <div class="inp-group">
-            <label>Short Call страйк ($)</label>
-            <input type="number" id="ic-sc" value="210" step="1" oninput="calcIC()">
-          </div>
-          <div class="inp-group">
-            <label>Long Call страйк ($)</label>
-            <input type="number" id="ic-lc" value="220" step="1" oninput="calcIC()">
-          </div>
-          <div class="inp-group">
-            <label>Net кредит ($)</label>
-            <input type="number" id="ic-credit" value="3.20" step="0.1" oninput="calcIC()">
-          </div>
-          <div class="inp-group">
-            <label>Кол-во контрактов</label>
-            <input type="number" id="ic-qty" value="1" min="1" step="1" oninput="calcIC()">
-          </div>
+          <div class="inp-group"><label>Текущая цена ($)</label><input type="number" id="ic-spot" value="190.30" step="0.5" oninput="calcIC()"></div>
+          <div class="inp-group"><label>Long Put страйк ($)</label><input type="number" id="ic-lp" value="165" step="1" oninput="calcIC()"></div>
+          <div class="inp-group"><label>Short Put страйк ($)</label><input type="number" id="ic-sp" value="175" step="1" oninput="calcIC()"></div>
+          <div class="inp-group"><label>Short Call страйк ($)</label><input type="number" id="ic-sc" value="210" step="1" oninput="calcIC()"></div>
+          <div class="inp-group"><label>Long Call страйк ($)</label><input type="number" id="ic-lc" value="220" step="1" oninput="calcIC()"></div>
+          <div class="inp-group"><label>Net кредит ($)</label><input type="number" id="ic-credit" value="3.20" step="0.1" oninput="calcIC()"></div>
+          <div class="inp-group"><label>Кол-во контрактов</label><input type="number" id="ic-qty" value="1" min="1" step="1" oninput="calcIC()"></div>
         </div>
         <button class="calc-btn" onclick="calcIC()">Рассчитать</button>
         <div class="results-grid">
-          <div class="result-box">
-            <div class="result-label">Макс. прибыль</div>
-            <div class="result-val pos" id="ic-maxp">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">Макс. убыток</div>
-            <div class="result-val neg" id="ic-maxl">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">BE нижний</div>
-            <div class="result-val neu" id="ic-bel">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">BE верхний</div>
-            <div class="result-val neu" id="ic-beu">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">Зона прибыли</div>
-            <div class="result-val pos" id="ic-zone">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">ROI (на риск)</div>
-            <div class="result-val pos" id="ic-roi">—</div>
-          </div>
+          <div class="result-box"><div class="result-label">Макс. прибыль</div><div class="result-val pos" id="ic-maxp">—</div></div>
+          <div class="result-box"><div class="result-label">Макс. убыток</div><div class="result-val neg" id="ic-maxl">—</div></div>
+          <div class="result-box"><div class="result-label">BE нижний</div><div class="result-val neu" id="ic-bel">—</div></div>
+          <div class="result-box"><div class="result-label">BE верхний</div><div class="result-val neu" id="ic-beu">—</div></div>
+          <div class="result-box"><div class="result-label">Зона прибыли</div><div class="result-val pos" id="ic-zone">—</div></div>
+          <div class="result-box"><div class="result-label">ROI (на риск)</div><div class="result-val pos" id="ic-roi">—</div></div>
         </div>
       </div>
     </div>
 
-    <!-- Stock Purchase -->
     <div id="tab-stock" class="tab-panel">
       <div class="calc-card">
         <div class="calc-title">Покупка акции</div>
-        <div class="calc-desc">
-          Простая покупка акции с расчётом прибыли при достижении целевых уровней аналитиков. Без плеча, без временного ограничения.
-        </div>
+        <div class="calc-desc">Простая покупка акции с расчётом прибыли при достижении целевых уровней аналитиков. Без плеча, без временного ограничения.</div>
         <div class="inputs-grid">
-          <div class="inp-group">
-            <label>Цена входа ($)</label>
-            <input type="number" id="st-entry" value="190.30" step="0.5" oninput="calcStock()">
-          </div>
-          <div class="inp-group">
-            <label>Кол-во акций</label>
-            <input type="number" id="st-qty" value="10" min="1" step="1" oninput="calcStock()">
-          </div>
-          <div class="inp-group">
-            <label>Цель #1 — Консенсус ($)</label>
-            <input type="number" id="st-t1" value="256" step="1" oninput="calcStock()">
-          </div>
-          <div class="inp-group">
-            <label>Цель #2 — Bullish ($)</label>
-            <input type="number" id="st-t2" value="275" step="1" oninput="calcStock()">
-          </div>
-          <div class="inp-group">
-            <label>Цель #3 — Street-High ($)</label>
-            <input type="number" id="st-t3" value="352" step="1" oninput="calcStock()">
-          </div>
-          <div class="inp-group">
-            <label>Стоп-лосс ($)</label>
-            <input type="number" id="st-stop" value="168" step="1" oninput="calcStock()">
-          </div>
+          <div class="inp-group"><label>Цена входа ($)</label><input type="number" id="st-entry" value="190.30" step="0.5" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Кол-во акций</label><input type="number" id="st-qty" value="10" min="1" step="1" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Цель #1 — Консенсус ($)</label><input type="number" id="st-t1" value="256" step="1" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Цель #2 — Bullish ($)</label><input type="number" id="st-t2" value="275" step="1" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Цель #3 — Street-High ($)</label><input type="number" id="st-t3" value="352" step="1" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Стоп-лосс ($)</label><input type="number" id="st-stop" value="168" step="1" oninput="calcStock()"></div>
         </div>
         <button class="calc-btn" onclick="calcStock()">Рассчитать</button>
         <div class="results-grid">
-          <div class="result-box">
-            <div class="result-label">Вложено</div>
-            <div class="result-val neu" id="st-invested">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">Прибыль @T1</div>
-            <div class="result-val pos" id="st-p1">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">Прибыль @T2</div>
-            <div class="result-val pos" id="st-p2">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">Прибыль @T3</div>
-            <div class="result-val pos" id="st-p3">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">Стоп-убыток</div>
-            <div class="result-val neg" id="st-loss">—</div>
-          </div>
-          <div class="result-box">
-            <div class="result-label">R/R к T1</div>
-            <div class="result-val neu" id="st-rr">—</div>
-          </div>
+          <div class="result-box"><div class="result-label">Вложено</div><div class="result-val neu" id="st-invested">—</div></div>
+          <div class="result-box"><div class="result-label">Прибыль @T1</div><div class="result-val pos" id="st-p1">—</div></div>
+          <div class="result-box"><div class="result-label">Прибыль @T2</div><div class="result-val pos" id="st-p2">—</div></div>
+          <div class="result-box"><div class="result-label">Прибыль @T3</div><div class="result-val pos" id="st-p3">—</div></div>
+          <div class="result-box"><div class="result-label">Стоп-убыток</div><div class="result-val neg" id="st-loss">—</div></div>
+          <div class="result-box"><div class="result-label">R/R к T1</div><div class="result-val neu" id="st-rr">—</div></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Risk section -->
   <div class="risk-section">
     <div class="section-title">Ключевые риски</div>
-    <div class="risk-row">
-      <div class="risk-name">Экспортные ограничения на AI-чипы (США/Китай)</div>
-      <div class="risk-level"><span class="risk-dot" style="background:var(--red)"></span>Высокий</div>
-    </div>
-    <div class="risk-row">
-      <div class="risk-name">DeepSeek-эффект: снижение спроса на GPU</div>
-      <div class="risk-level"><span class="risk-dot" style="background:var(--yellow)"></span>Средний</div>
-    </div>
-    <div class="risk-row">
-      <div class="risk-name">Конкуренция AMD / собственные чипы гипер-скейлеров</div>
-      <div class="risk-level"><span class="risk-dot" style="background:var(--yellow)"></span>Средний</div>
-    </div>
-    <div class="risk-row">
-      <div class="risk-name">Общая коррекция рынка / risk-off</div>
-      <div class="risk-level"><span class="risk-dot" style="background:var(--accent)"></span>Низкий</div>
-    </div>
-    <div class="risk-row">
-      <div class="risk-name">Задержка поставок Blackwell</div>
-      <div class="risk-level"><span class="risk-dot" style="background:var(--accent)"></span>Низкий</div>
-    </div>
+    <div class="risk-row"><div class="risk-name">Экспортные ограничения на AI-чипы (США/Китай)</div><div class="risk-level"><span class="risk-dot" style="background:var(--red)"></span>Высокий</div></div>
+    <div class="risk-row"><div class="risk-name">DeepSeek-эффект: снижение спроса на GPU</div><div class="risk-level"><span class="risk-dot" style="background:var(--yellow)"></span>Средний</div></div>
+    <div class="risk-row"><div class="risk-name">Конкуренция AMD / собственные чипы гипер-скейлеров</div><div class="risk-level"><span class="risk-dot" style="background:var(--yellow)"></span>Средний</div></div>
+    <div class="risk-row"><div class="risk-name">Общая коррекция рынка / risk-off</div><div class="risk-level"><span class="risk-dot" style="background:var(--accent)"></span>Низкий</div></div>
+    <div class="risk-row"><div class="risk-name">Задержка поставок Blackwell</div><div class="risk-level"><span class="risk-dot" style="background:var(--accent)"></span>Низкий</div></div>
   </div>
 
-  <!-- Footer -->
   <div class="footer">
     <strong>MZN INVEST</strong> · Закрытый инвестиционный канал<br>
     Материал носит исключительно образовательный и информационный характер.<br>
     Не является инвестиционной рекомендацией. Опционы несут высокий риск потери капитала.<br>
     Данные: Schwab, Goldman Sachs, MarketBeat, Benzinga · <span id="gen-date"></span>
   </div>
-
 </div>
 
 <script>
-  // Set generation date
   document.getElementById('gen-date').textContent = new Date().toLocaleDateString('ru-RU', {day:'2-digit',month:'long',year:'numeric'});
-
-  function fmt(n, prefix='$') {
-    if (isNaN(n)) return '—';
-    return prefix + Math.abs(n).toFixed(2);
-  }
-  function fmtPct(n) {
-    if (isNaN(n) || !isFinite(n)) return '—';
-    return (n >= 0 ? '+' : '') + n.toFixed(1) + '%';
-  }
-
-  // ── Tab switcher ──
+  function fmt(n) { if (isNaN(n)) return '—'; return '$' + Math.abs(n).toFixed(2); }
+  function fmtPct(n) { if (isNaN(n) || !isFinite(n)) return '—'; return (n >= 0 ? '+' : '') + n.toFixed(1) + '%'; }
   function switchTab(id) {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
     event.target.classList.add('active');
-    if (id === 'bcs') calcBCS();
-    if (id === 'ic') calcIC();
-    if (id === 'stock') calcStock();
+    if (id === 'bcs') calcBCS(); if (id === 'ic') calcIC(); if (id === 'stock') calcStock();
   }
-
-  // ── Bull Call Spread ──
   function calcBCS() {
-    const spot = +document.getElementById('bcs-spot').value;
-    const k1   = +document.getElementById('bcs-k1').value;
-    const p1   = +document.getElementById('bcs-p1').value;
-    const k2   = +document.getElementById('bcs-k2').value;
-    const p2   = +document.getElementById('bcs-p2').value;
-    const qty  = +document.getElementById('bcs-qty').value;
-
-    const net   = (p1 - p2) * qty * 100;
-    const be    = k1 + (p1 - p2);
-    const maxP  = (k2 - k1 - (p1 - p2)) * qty * 100;
-    const maxL  = net;
-    const roi   = (maxP / maxL) * 100;
-    const rr    = maxP / maxL;
-
-    // Current payoff
-    const curPayoff = spot >= k2 ? maxP : spot <= k1 ? 0 :
-                      (spot - k1 - (p1 - p2)) * qty * 100;
-    const pct = Math.min(100, Math.max(0, (curPayoff / maxP) * 100));
-
-    document.getElementById('bcs-debit').textContent = '-' + fmt(net);
-    document.getElementById('bcs-be').textContent    = fmt(be);
-    document.getElementById('bcs-maxp').textContent  = '+' + fmt(maxP);
-    document.getElementById('bcs-maxl').textContent  = '-' + fmt(maxL);
-    document.getElementById('bcs-roi').textContent   = fmtPct(roi);
-    document.getElementById('bcs-rr').textContent    = isFinite(rr) ? '1 : ' + rr.toFixed(2) : '—';
-
-    const bw = document.getElementById('bcs-bar-wrap');
-    bw.style.display = 'block';
-    document.getElementById('bcs-bar').style.width = pct + '%';
+    const spot=+document.getElementById('bcs-spot').value, k1=+document.getElementById('bcs-k1').value, p1=+document.getElementById('bcs-p1').value, k2=+document.getElementById('bcs-k2').value, p2=+document.getElementById('bcs-p2').value, qty=+document.getElementById('bcs-qty').value;
+    const net=(p1-p2)*qty*100, be=k1+(p1-p2), maxP=(k2-k1-(p1-p2))*qty*100, maxL=net, roi=(maxP/maxL)*100, rr=maxP/maxL;
+    const curPayoff=spot>=k2?maxP:spot<=k1?0:(spot-k1-(p1-p2))*qty*100;
+    const pct=Math.min(100,Math.max(0,(curPayoff/maxP)*100));
+    document.getElementById('bcs-debit').textContent='-'+fmt(net); document.getElementById('bcs-be').textContent=fmt(be);
+    document.getElementById('bcs-maxp').textContent='+'+fmt(maxP); document.getElementById('bcs-maxl').textContent='-'+fmt(maxL);
+    document.getElementById('bcs-roi').textContent=fmtPct(roi); document.getElementById('bcs-rr').textContent=isFinite(rr)?'1 : '+rr.toFixed(2):'—';
+    document.getElementById('bcs-bar-wrap').style.display='block'; document.getElementById('bcs-bar').style.width=pct+'%';
   }
-
-  // ── Iron Condor ──
   function calcIC() {
-    const spot   = +document.getElementById('ic-spot').value;
-    const lp     = +document.getElementById('ic-lp').value;
-    const sp     = +document.getElementById('ic-sp').value;
-    const sc     = +document.getElementById('ic-sc').value;
-    const lc     = +document.getElementById('ic-lc').value;
-    const credit = +document.getElementById('ic-credit').value;
-    const qty    = +document.getElementById('ic-qty').value;
-
-    const wingW  = Math.max(sp - lp, lc - sc);
-    const maxP   = credit * qty * 100;
-    const maxL   = (wingW - credit) * qty * 100;
-    const bel    = sp - credit;
-    const beu    = sc + credit;
-    const roi    = (maxP / maxL) * 100;
-    const zone   = beu - bel;
-
-    document.getElementById('ic-maxp').textContent = '+' + fmt(maxP);
-    document.getElementById('ic-maxl').textContent = '-' + fmt(maxL);
-    document.getElementById('ic-bel').textContent  = fmt(bel);
-    document.getElementById('ic-beu').textContent  = fmt(beu);
-    document.getElementById('ic-zone').textContent = '$' + bel.toFixed(0) + '–$' + beu.toFixed(0) + ' (' + zone.toFixed(0) + '$)';
-    document.getElementById('ic-roi').textContent  = fmtPct(roi);
+    const spot=+document.getElementById('ic-spot').value, lp=+document.getElementById('ic-lp').value, sp=+document.getElementById('ic-sp').value, sc=+document.getElementById('ic-sc').value, lc=+document.getElementById('ic-lc').value, credit=+document.getElementById('ic-credit').value, qty=+document.getElementById('ic-qty').value;
+    const wingW=Math.max(sp-lp,lc-sc), maxP=credit*qty*100, maxL=(wingW-credit)*qty*100, bel=sp-credit, beu=sc+credit, roi=(maxP/maxL)*100, zone=beu-bel;
+    document.getElementById('ic-maxp').textContent='+'+fmt(maxP); document.getElementById('ic-maxl').textContent='-'+fmt(maxL);
+    document.getElementById('ic-bel').textContent=fmt(bel); document.getElementById('ic-beu').textContent=fmt(beu);
+    document.getElementById('ic-zone').textContent='$'+bel.toFixed(0)+'–$'+beu.toFixed(0)+' ('+zone.toFixed(0)+'$)';
+    document.getElementById('ic-roi').textContent=fmtPct(roi);
   }
-
-  // ── Stock ──
   function calcStock() {
-    const entry = +document.getElementById('st-entry').value;
-    const qty   = +document.getElementById('st-qty').value;
-    const t1    = +document.getElementById('st-t1').value;
-    const t2    = +document.getElementById('st-t2').value;
-    const t3    = +document.getElementById('st-t3').value;
-    const stop  = +document.getElementById('st-stop').value;
-
-    const invested = entry * qty;
-    const p1 = (t1 - entry) * qty;
-    const p2 = (t2 - entry) * qty;
-    const p3 = (t3 - entry) * qty;
-    const loss = (stop - entry) * qty;
-    const rr = Math.abs(p1 / loss);
-
-    document.getElementById('st-invested').textContent = fmt(invested);
-    document.getElementById('st-p1').textContent = (p1>=0?'+':'')+fmt(p1)+' ('+fmtPct((t1-entry)/entry*100)+')';
-    document.getElementById('st-p2').textContent = (p2>=0?'+':'')+fmt(p2)+' ('+fmtPct((t2-entry)/entry*100)+')';
-    document.getElementById('st-p3').textContent = (p3>=0?'+':'')+fmt(p3)+' ('+fmtPct((t3-entry)/entry*100)+')';
-    document.getElementById('st-loss').textContent = fmt(loss)+' ('+fmtPct((stop-entry)/entry*100)+')';
-    document.getElementById('st-rr').textContent = '1 : ' + rr.toFixed(2);
+    const entry=+document.getElementById('st-entry').value, qty=+document.getElementById('st-qty').value, t1=+document.getElementById('st-t1').value, t2=+document.getElementById('st-t2').value, t3=+document.getElementById('st-t3').value, stop=+document.getElementById('st-stop').value;
+    const invested=entry*qty, p1=(t1-entry)*qty, p2=(t2-entry)*qty, p3=(t3-entry)*qty, loss=(stop-entry)*qty, rr=Math.abs(p1/loss);
+    document.getElementById('st-invested').textContent=fmt(invested);
+    document.getElementById('st-p1').textContent=(p1>=0?'+':'')+fmt(p1)+' ('+fmtPct((t1-entry)/entry*100)+')';
+    document.getElementById('st-p2').textContent=(p2>=0?'+':'')+fmt(p2)+' ('+fmtPct((t2-entry)/entry*100)+')';
+    document.getElementById('st-p3').textContent=(p3>=0?'+':'')+fmt(p3)+' ('+fmtPct((t3-entry)/entry*100)+')';
+    document.getElementById('st-loss').textContent=fmt(loss)+' ('+fmtPct((stop-entry)/entry*100)+')';
+    document.getElementById('st-rr').textContent='1 : '+rr.toFixed(2);
   }
-
-  // Init on load
   calcBCS(); calcIC(); calcStock();
 </script>
+
+<!-- BOTTOM BACK NAV -->
+<nav style="background:#161b26;border-top:1px solid #2a3447;padding:18px 20px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <span style="color:#8896a5;font-size:13px;">Хотите посмотреть другие идеи?</span>
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid #2a3447;color:#8896a5;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;" onmouseover="this.style.borderColor='#00e5a0';this.style.color='#00e5a0'" onmouseout="this.style.borderColor='#2a3447';this.style.color='#8896a5'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Вернуться на главную
+  </a>
+</nav>
+
 </body>
 </html>
