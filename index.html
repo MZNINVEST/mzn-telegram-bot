@@ -29,109 +29,162 @@
     align-items: center;
     justify-content: space-between;
   }
-  .logo {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: -0.5px;
-  }
+  .logo { font-size: 22px; font-weight: 700; color: var(--accent); letter-spacing: -0.5px; }
   .logo span { color: var(--green); }
   .tagline { color: var(--muted); font-size: 13px; }
   main { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
   h2 { font-size: 20px; margin-bottom: 24px; color: var(--text); }
   .grid { display: grid; gap: 16px; }
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-decoration: none;
-    transition: border-color 0.2s, transform 0.15s;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;
+    text-decoration: none; transition: border-color 0.2s, transform 0.15s;
   }
   .card:hover { border-color: var(--accent); transform: translateY(-2px); }
   .card-left { display: flex; align-items: center; gap: 16px; }
   .ticker-badge {
-    background: #1c2d3a;
-    color: var(--accent);
-    font-size: 18px;
-    font-weight: 700;
-    padding: 8px 14px;
-    border-radius: 8px;
-    border: 1px solid #2d4a6a;
-    min-width: 80px;
-    text-align: center;
+    background: #1c2d3a; color: var(--accent); font-size: 18px; font-weight: 700;
+    padding: 8px 14px; border-radius: 8px; border: 1px solid #2d4a6a;
+    min-width: 80px; text-align: center;
   }
   .card-title { font-size: 15px; font-weight: 600; color: var(--text); }
   .card-date { font-size: 12px; color: var(--muted); margin-top: 3px; }
   .card-meta { display: flex; align-items: center; gap: 12px; }
   .badge {
-    font-size: 11px;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 20px;
-    background: rgba(63,185,80,0.15);
-    color: var(--green);
-    border: 1px solid rgba(63,185,80,0.3);
-  }
-  .badge.neutral {
-    background: rgba(88,166,255,0.12);
-    color: var(--accent);
-    border-color: rgba(88,166,255,0.3);
+    font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+    background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3);
   }
   .arrow { color: var(--muted); font-size: 18px; }
   .subscribe-banner {
     background: linear-gradient(135deg, #1a2332 0%, #1c2d3a 100%);
-    border: 1px solid #2d4a6a;
-    border-radius: 14px;
-    padding: 28px 32px;
-    text-align: center;
-    margin-top: 48px;
+    border: 1px solid #2d4a6a; border-radius: 14px; padding: 28px 32px;
+    text-align: center; margin-top: 48px;
   }
-  .subscribe-banner p {
-    color: var(--muted);
-    font-size: 13px;
-    margin-bottom: 16px;
-  }
+  .subscribe-banner p { color: var(--muted); font-size: 13px; margin-bottom: 16px; }
   .subscribe-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: #229ed9;
-    color: #fff;
-    font-size: 15px;
-    font-weight: 600;
-    padding: 13px 28px;
-    border-radius: 10px;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
+    display: inline-flex; align-items: center; gap: 10px; background: #229ed9; color: #fff;
+    font-size: 15px; font-weight: 600; padding: 13px 28px; border-radius: 10px;
+    text-decoration: none; transition: background 0.2s, transform 0.15s;
   }
   .subscribe-btn:hover { background: #1a8bbf; transform: translateY(-2px); }
-  .subscribe-btn svg { flex-shrink: 0; }
   footer {
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    padding: 32px 20px;
-    border-top: 1px solid var(--border);
-    margin-top: 40px;
+    text-align: center; color: var(--muted); font-size: 12px;
+    padding: 32px 20px; border-top: 1px solid var(--border); margin-top: 40px;
   }
   footer a { color: var(--accent); text-decoration: none; }
+  header { position: sticky; top: 0; z-index: 100; }
+  .nav-links { display: flex; gap: 4px; list-style: none; margin-top: 10px; }
+  .nav-links a {
+    display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 7px;
+    font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none;
+    transition: background .15s, color .15s;
+  }
+  .nav-links a:hover, .nav-links a.active { background: rgba(88,166,255,.1); color: var(--accent); }
+  .nav-links a.ev:hover, .nav-links a.ev.active { background: rgba(167,139,250,.1); color: #a78bfa; }
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--muted); margin: 48px 0 16px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .event-card {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid #a78bfa;
+    border-radius: 12px; padding: 20px 24px; display: flex; align-items: center;
+    justify-content: space-between; text-decoration: none; gap: 20px;
+    transition: border-color .2s, transform .15s;
+  }
+  .event-card:hover { border-color: #a78bfa; transform: translateY(-2px); }
+  .event-left { display: flex; align-items: center; gap: 16px; flex: 1; }
+  .event-icon {
+    background: rgba(167,139,250,.12); border: 1px solid rgba(167,139,250,.25);
+    border-radius: 10px; width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
+  }
+  .event-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .event-desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+  .event-meta { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .badge-ev {
+    font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+    background: rgba(167,139,250,.12); color: #a78bfa; border: 1px solid rgba(167,139,250,.3);
+  }
+  .badge-impact {
+    font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+    background: rgba(248,81,73,.12); color: #f85149; border: 1px solid rgba(248,81,73,.3);
+  }
+  .arrow-ev { color: #a78bfa; font-size: 18px; }
+  .community {
+    background: linear-gradient(135deg, #0f1a2e 0%, #1a1030 100%);
+    border: 1px solid #2d3a50; border-radius: 14px; padding: 30px 32px;
+  }
+  .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+  @media (max-width: 640px) {
+    .community-grid { grid-template-columns: 1fr; }
+    .nav-links { flex-wrap: wrap; }
+  }
+  .comm-h { font-size: 18px; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
+  .comm-h em { font-style: normal; color: var(--accent); }
+  .comm-p { color: var(--muted); font-size: 13px; margin-bottom: 14px; line-height: 1.6; }
+  .comm-list { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
+  .comm-list li { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; }
+  .comm-list li::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 12px; margin-top: 2px; flex-shrink: 0; }
+  .btn-tg {
+    display: inline-flex; align-items: center; gap: 8px; background: #229ed9; color: #fff;
+    font-size: 14px; font-weight: 600; padding: 11px 22px; border-radius: 10px;
+    text-decoration: none; transition: background .15s, transform .15s;
+  }
+  .btn-tg:hover { background: #1a8bbf; transform: translateY(-2px); }
+  .comm-visual {
+    background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 12px; padding: 18px;
+  }
+  .av-row { display: flex; align-items: center; margin-bottom: 14px; }
+  .av {
+    width: 36px; height: 36px; border-radius: 50%; border: 2px solid #0d1117;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; margin-right: -8px; flex-shrink: 0;
+  }
+  .av-count { margin-left: 16px; font-size: 13px; font-weight: 600; color: var(--accent); }
+  .stat-g { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .stat-b {
+    background: rgba(255,255,255,.04); border: 1px solid var(--border);
+    border-radius: 8px; padding: 11px; text-align: center;
+  }
+  .stat-b .n { font-size: 16px; font-weight: 800; color: var(--accent); display: block; }
+  .stat-b .l { font-size: 11px; color: var(--muted); display: block; margin-top: 2px; }
+  .chat-b {
+    background: rgba(255,255,255,.04); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .chat-row { display: flex; gap: 8px; align-items: flex-start; }
+  .chat-av {
+    width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700;
+  }
+  .chat-bubble {
+    background: rgba(88,166,255,.08); border-radius: 0 7px 7px 7px;
+    padding: 6px 10px; font-size: 12px; color: var(--text); line-height: 1.4;
+  }
+  .chat-bubble b { display: block; font-size: 10px; color: var(--accent); margin-bottom: 1px; }
 </style>
 </head>
 <body>
 
 <header>
-  <div>
-    <div class="logo">MZN<span>Invest</span></div>
-    <div class="tagline">Торговые идеи с калькуляторами опционов</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+    <div>
+      <div class="logo">MZN<span>Invest</span></div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#ideas" class="active">Торговые идеи</a></li>
+          <li><a href="#events" class="ev">Обзоры событий</a></li>
+          <li><a href="#community">Комьюнити</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="tagline" style="align-self:flex-start;margin-top:4px;">Торговые идеи с калькуляторами опционов</div>
   </div>
 </header>
 
 <main>
-  <h2>Актуальные идеи</h2>
+  <div class="section-label" id="ideas">Торговые идеи</div>
   <div class="grid">
 
     <a class="card" href="ideas/2026-02-25_NVDA_idea.html">
@@ -163,14 +216,85 @@
     </a>
 
   </div>
+
+  <!-- ОБЗОРЫ СОБЫТИЙ -->
+  <div class="section-label" id="events">Обзоры событий</div>
+  <div class="grid">
+    <a class="event-card" href="events/event-mexico-silver.html">
+      <div class="event-left">
+        <div class="event-icon">🪙</div>
+        <div>
+          <div class="event-title">Мексика и серебро — разрушение цепочки поставок</div>
+          <div class="event-desc">США берут 70% серебра из Мексики. Нестабильность в регионе ударяет по дефицитному рынку — что делать инвестору.</div>
+          <div class="card-date" style="margin-top:5px;">24 февраля 2026</div>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="badge-ev">Событие</span>
+        <span class="badge-impact">Высокое влияние</span>
+        <span class="arrow-ev">›</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- КОМЬЮНИТИ -->
+  <div class="section-label" id="community">Комьюнити</div>
+  <div class="community">
+    <div class="community-grid">
+      <div>
+        <div class="comm-h">Присоединяйтесь к<br><em>MZN Community</em></div>
+        <p class="comm-p">Живое сообщество инвесторов — от новичков до опытных. Делимся идеями, разбираем рынок и помогаем друг другу расти.</p>
+        <ul class="comm-list">
+          <li>Ранний доступ к торговым идеям и обзорам событий</li>
+          <li>Еженедельные стримы и Q&amp;A с аналитиками</li>
+          <li>Закрытый чат с командой</li>
+          <li>Обучение: от основ до опционных стратегий</li>
+          <li>Дружная атмосфера без токсичности</li>
+        </ul>
+        <a class="btn-tg" href="https://t.me/tribute/app?startapp=sei3" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.67 7.86c-.12.55-.46.68-.93.42l-2.57-1.9-1.24 1.19c-.14.14-.26.26-.53.26l.19-2.66 4.84-4.37c.21-.19-.05-.29-.32-.1L7.82 14.37l-2.52-.79c-.55-.17-.56-.55.12-.81l9.85-3.8c.46-.17.86.11.37.83z"/></svg>
+          Подписаться на канал
+        </a>
+      </div>
+      <div class="comm-visual">
+        <div class="av-row">
+          <div class="av" style="background:#2563eb;">А</div>
+          <div class="av" style="background:#7c3aed;">М</div>
+          <div class="av" style="background:#059669;">Д</div>
+          <div class="av" style="background:#d97706;">К</div>
+          <div class="av" style="background:#dc2626;">И</div>
+          <span class="av-count">+4 200 участников</span>
+        </div>
+        <div class="stat-g">
+          <div class="stat-b"><span class="n">4 200+</span><span class="l">Участников</span></div>
+          <div class="stat-b"><span class="n">150+</span><span class="l">Разборов</span></div>
+          <div class="stat-b"><span class="n">3 года</span><span class="l">Опыт команды</span></div>
+          <div class="stat-b"><span class="n">72%</span><span class="l">Идей в плюсе</span></div>
+        </div>
+        <div class="chat-b">
+          <div class="chat-row">
+            <div class="chat-av" style="background:#7c3aed;">М</div>
+            <div class="chat-bubble"><b>Макс · аналитик</b>NVDA держит $185, смотрим GTC 2026 как катализатор 🚀</div>
+          </div>
+          <div class="chat-row">
+            <div class="chat-av" style="background:#059669;">Д</div>
+            <div class="chat-bubble"><b>Дмитрий</b>Вошёл по Bull Call Spread — спасибо за калькулятор!</div>
+          </div>
+          <div class="chat-row">
+            <div class="chat-av" style="background:#2563eb;">А</div>
+            <div class="chat-bubble"><b>Алексей</b>Когда разбор по AMD опциям?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <div class="subscribe-banner" style="max-width:900px;margin:48px auto 0;padding-left:20px;padding-right:20px;">
   <p>Получайте торговые идеи, разборы опционных стратегий и аналитику раньше всех</p>
   <a class="subscribe-btn" href="https://t.me/tribute/app?startapp=sei3" target="_blank">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.67 7.86c-.12.55-.46.68-.93.42l-2.57-1.9-1.24 1.19c-.14.14-.26.26-.53.26l.19-2.66 4.84-4.37c.21-.19-.05-.29-.32-.1L7.82 14.37l-2.52-.79c-.55-.17-.56-.55.12-.81l9.85-3.8c.46-.17.86.11.37.83z" fill="white"/>
-    </svg>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.67 7.86c-.12.55-.46.68-.93.42l-2.57-1.9-1.24 1.19c-.14.14-.26.26-.53.26l.19-2.66 4.84-4.37c.21-.19-.05-.29-.32-.1L7.82 14.37l-2.52-.79c-.55-.17-.56-.55.12-.81l9.85-3.8c.46-.17.86.11.37.83z" fill="white"/></svg>
     Подписаться на закрытый канал
   </a>
 </div>
