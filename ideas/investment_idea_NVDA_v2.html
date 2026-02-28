@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Инвест-идея: NVDA</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --card: #13161e;
+    --surface: #1a1e2a;
+    --border: #252a38;
+    --green: #00e599;
+    --green-dim: rgba(0,229,153,0.12);
+    --red: #ff4d6a;
+    --red-dim: rgba(255,77,106,0.1);
+    --yellow: #ffd166;
+    --yellow-dim: rgba(255,209,102,0.1);
+    --blue: #4ea8de;
+    --blue-dim: rgba(78,168,222,0.1);
+    --orange: #ff9f43;
+    --orange-dim: rgba(255,159,67,0.1);
+    --text: #e8eaf2;
+    --muted: #6b7394;
+    --ticker: #76b900;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Golos Text', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .wrapper { width:100%; max-width:640px; display:flex; flex-direction:column; gap:12px; }
+
+  .topbar {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px; background:var(--card);
+    border:1px solid var(--border); border-radius:16px;
+  }
+  .channel-name { font-family:'Unbounded',sans-serif; font-size:13px; font-weight:600; color:var(--green); letter-spacing:0.05em; }
+  .date-badge { font-size:12px; color:var(--muted); }
+
+  .verified-badge {
+    display:inline-flex; align-items:center; gap:5px;
+    background:var(--green-dim); border:1px solid rgba(0,229,153,0.3);
+    border-radius:8px; padding:4px 10px;
+    font-size:11px; color:var(--green); font-weight:600;
+  }
+
+  .card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:20px; overflow:hidden;
+    animation:slideUp 0.5s ease both;
+  }
+  @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .card-header {
+    padding:24px 24px 20px; border-bottom:1px solid var(--border);
+    position:relative; overflow:hidden;
+  }
+  .card-header::before {
+    content:''; position:absolute; top:-40px; right:-40px;
+    width:180px; height:180px;
+    background:radial-gradient(circle,rgba(118,185,0,0.07) 0%,transparent 70%);
+    pointer-events:none;
+  }
+
+  .header-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px; }
+  .ticker-block { display:flex; flex-direction:column; gap:4px; }
+  .ticker { font-family:'Unbounded',sans-serif; font-size:28px; font-weight:800; color:var(--ticker); letter-spacing:-0.02em; }
+  .company-name { font-size:13px; color:var(--muted); font-weight:500; }
+
+  .signal-badge {
+    display:flex; align-items:center; gap:6px;
+    background:var(--orange-dim); border:1px solid rgba(255,159,67,0.35);
+    border-radius:10px; padding:8px 14px;
+  }
+  .signal-dot { width:8px; height:8px; background:var(--orange); border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(0.8)} }
+  .signal-text { font-family:'Unbounded',sans-serif; font-size:11px; font-weight:600; color:var(--orange); text-transform:uppercase; letter-spacing:0.08em; }
+
+  .headline { font-family:'Unbounded',sans-serif; font-size:15px; font-weight:600; color:var(--text); line-height:1.5; margin-bottom:10px; }
+  .trigger-text { font-size:14px; color:var(--muted); line-height:1.6; }
+  .trigger-text strong { color:var(--text); font-weight:600; }
+
+  .price-grid { display:grid; grid-template-columns:1fr 1fr 1fr; border-bottom:1px solid var(--border); }
+  .price-cell { padding:16px 20px; border-right:1px solid var(--border); display:flex; flex-direction:column; gap:5px; }
+  .price-cell:last-child { border-right:none; }
+  .price-label { font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); font-weight:600; }
+  .price-value { font-family:'Unbounded',sans-serif; font-size:18px; font-weight:700; }
+  .price-value.current { color:var(--text); }
+  .price-value.target  { color:var(--green); }
+  .price-value.stop    { color:var(--red); }
+  .price-pct { font-size:11px; font-weight:600; padding:2px 7px; border-radius:5px; display:inline-block; width:fit-content; }
+  .pct-green  { background:var(--green-dim);  color:var(--green); }
+  .pct-red    { background:var(--red-dim);    color:var(--red); }
+  .pct-orange { background:var(--orange-dim); color:var(--orange); }
+
+  .card-body { padding:20px 24px; display:flex; flex-direction:column; gap:16px; }
+  .section { display:flex; flex-direction:column; gap:10px; }
+  .section-title { display:flex; align-items:center; gap:8px; font-family:'Unbounded',sans-serif; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+  .section-icon { font-size:14px; }
+
+  .trade-box { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .trade-header { padding:12px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .trade-type { font-family:'Unbounded',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.08em; padding:4px 10px; border-radius:6px; }
+  .type-stock    { background:var(--blue-dim);   color:var(--blue);   border:1px solid rgba(78,168,222,0.25); }
+  .type-bull-put { background:var(--green-dim);  color:var(--green);  border:1px solid rgba(0,229,153,0.25); }
+  .type-bear-put { background:var(--red-dim);    color:var(--red);    border:1px solid rgba(255,77,106,0.25); }
+  .trade-risk { font-size:11px; color:var(--muted); }
+  .trade-rows { padding:14px 16px; display:flex; flex-direction:column; gap:8px; }
+  .trade-row  { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+  .trade-key  { font-size:13px; color:var(--muted); white-space:nowrap; flex-shrink:0; }
+  .trade-val  { font-size:13px; color:var(--text); font-weight:500; text-align:right; }
+  .trade-val.green  { color:var(--green);  font-weight:600; }
+  .trade-val.red    { color:var(--red);    font-weight:600; }
+  .trade-val.yellow { color:var(--yellow); font-weight:600; }
+  .trade-val.orange { color:var(--orange); font-weight:600; }
+
+  .analysis-table { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .analysis-row   { display:flex; align-items:center; justify-content:space-between; padding:11px 16px; border-bottom:1px solid var(--border); }
+  .analysis-row:last-child { border-bottom:none; }
+  .analysis-key   { font-size:13px; color:var(--muted); display:flex; align-items:center; gap:6px; }
+  .analysis-val   { font-size:13px; color:var(--text); font-weight:500; }
+
+  .bar-wrap { display:flex; align-items:center; gap:8px; }
+  .mini-bar { height:4px; border-radius:2px; background:var(--border); width:80px; position:relative; overflow:hidden; }
+  .mini-bar-fill { height:100%; border-radius:2px; position:absolute; left:0; top:0; animation:barGrow 1s ease both 0.3s; }
+  @keyframes barGrow { from{width:0} }
+
+  .risk-box { background:var(--red-dim); border:1px solid rgba(255,77,106,0.2); border-radius:12px; padding:12px 16px; font-size:13px; color:var(--muted); line-height:1.5; display:flex; gap:10px; align-items:flex-start; }
+  .risk-icon { font-size:16px; flex-shrink:0; margin-top:1px; }
+
+  .warning-box { background:var(--orange-dim); border:1px solid rgba(255,159,67,0.25); border-radius:12px; padding:12px 16px; font-size:13px; color:var(--muted); line-height:1.5; display:flex; gap:10px; align-items:flex-start; }
+
+  .catalyst-item { display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--text); line-height:1.5; }
+  .catalyst-dot  { width:6px; height:6px; background:var(--green); border-radius:50%; flex-shrink:0; margin-top:6px; }
+  .catalyst-dot.red    { background:var(--red); }
+  .catalyst-dot.orange { background:var(--orange); }
+
+  .scn-bar { display:flex; gap:8px; }
+  .scn-btn {
+    flex:1; padding:10px 8px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:10px; cursor:pointer;
+    font-family:'Unbounded',sans-serif; font-size:10px; font-weight:600;
+    letter-spacing:0.05em; color:var(--muted); transition:all .15s;
+  }
+  .scn-btn.bull { border-color:rgba(0,229,153,0.4); color:var(--green); background:var(--green-dim); }
+  .scn-btn.bear { border-color:rgba(255,77,106,0.4); color:var(--red);   background:var(--red-dim); }
+  .scn-panel { display:none; }
+  .scn-panel.active { display:flex; flex-direction:column; gap:16px; }
+
+  .divider { border:none; border-top:1px solid var(--border); margin:4px 0; }
+
+  .disclaimer { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px 20px; font-size:11px; color:var(--muted); text-align:center; line-height:1.5; }
+
+  @media(max-width:480px){
+    .price-grid{grid-template-columns:1fr 1fr}
+    .price-cell:nth-child(2){border-right:none}
+    .price-cell:nth-child(3){grid-column:1/-1;border-top:1px solid var(--border)}
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <span class="channel-name">⚡ INVEST PULSE</span>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="verified-badge">✓ Данные проверены</span>
+      <span class="date-badge">28 февраля 2026 · Идея #3</span>
+    </div>
+  </div>
+
+  <!-- CARD -->
+  <div class="card" style="animation-delay:0.05s">
+
+    <!-- HEADER -->
+    <div class="card-header">
+      <div class="header-top">
+        <div class="ticker-block">
+          <span class="ticker">NVDA</span>
+          <span class="company-name">NVIDIA Corporation · NASDAQ</span>
+        </div>
+        <div class="signal-badge">
+          <div class="signal-dot"></div>
+          <span class="signal-text">Осторожно</span>
+        </div>
+      </div>
+      <div class="headline">Sell the news после рекордного отчёта — ждём GTC 16 марта 🎯</div>
+      <div class="trigger-text">
+        Nvidia отчиталась за Q4 FY2026: выручка <strong>$68.1 млрд</strong> (+73% г/г), EPS <strong>$1.62</strong> — beat. Гайданс Q1: <strong>$78 млрд</strong> — выше ожиданий на $6 млрд. Но акция упала с $195 до $177 — классический "sell the news". Следующий катализатор: <strong>GTC-конференция 16 марта</strong> с анонсом Vera Rubin. Работаем строго от уровней.
+      </div>
+    </div>
+
+    <!-- PRICE STRIP -->
+    <div class="price-grid">
+      <div class="price-cell">
+        <span class="price-label">Цена (27.02.2026)</span>
+        <span class="price-value current">$177.19</span>
+        <span class="price-pct pct-orange">-5.5% после отчёта</span>
+      </div>
+      <div class="price-cell">
+        <span class="price-label">🎯 Цель</span>
+        <span class="price-value target">$200–210</span>
+        <span class="price-pct pct-green">+13–18% потенциал</span>
+      </div>
+      <div class="price-cell">
+        <span class="price-label">🛑 Стоп-лосс</span>
+        <span class="price-value stop">$160</span>
+        <span class="price-pct pct-red">-9.7% риск</span>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="card-body">
+
+      <!-- CATALYSTS -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">🔥</span> Почему это интересно</div>
+        <div class="analysis-table">
+          <div style="padding:12px 16px;display:flex;flex-direction:column;gap:10px;">
+            <div class="catalyst-item">
+              <div class="catalyst-dot"></div>
+              <span>Q4 FY2026 — рекордный квартал: $68.1 млрд выручки (+73%), Data Center +75%, EPS $1.62 при прогнозе $1.53. Beat на всех фронтах.</span>
+            </div>
+            <div class="catalyst-item">
+              <div class="catalyst-dot"></div>
+              <span>Гайданс Q1 FY2027: $78 млрд ±2% — на $6 млрд выше консенсуса. Blackwell раскуплен на 12–18 месяцев вперёд. Спрос реален.</span>
+            </div>
+            <div class="catalyst-item">
+              <div class="catalyst-dot"></div>
+              <span><strong style="color:var(--text)">GTC 16 марта</strong> — конференция Jensen Huang с анонсом Vera Rubin. Исторически главный катализатор роста после коррекций. Nvidia инвестировала $30 млрд в OpenAI.</span>
+            </div>
+            <div class="catalyst-item">
+              <div class="catalyst-dot orange"></div>
+              <span><strong style="color:var(--orange)">Предупреждение Бёрри:</strong> обязательства TSMC $95.2 млрд ≈ годовому операционному потоку. При замедлении спроса — риск списаний инвентаря по сценарию Cisco-2001.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TECH -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">📊</span> Технический анализ</div>
+        <div class="analysis-table">
+          <div class="analysis-row">
+            <span class="analysis-key">📍 Поддержка 1</span>
+            <span class="analysis-val" style="color:var(--green)">$166–170 (ключевая зона)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">📍 Поддержка 2</span>
+            <span class="analysis-val">$160 (стоп / 200 SMA)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">🎯 Сопротивление 1</span>
+            <span class="analysis-val" style="color:var(--yellow)">$186–190 (50 SMA)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">🎯 Сопротивление 2 / ATH</span>
+            <span class="analysis-val" style="color:var(--yellow)">$207–212 (исторический максимум)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">📉 50 SMA</span>
+            <span class="analysis-val" style="color:var(--yellow)">$185.60 (акция ниже)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">📈 200 SMA</span>
+            <span class="analysis-val" style="color:var(--green)">$174.69 (акция выше)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">Implied Volatility</span>
+            <div class="bar-wrap">
+              <div class="mini-bar"><div class="mini-bar-fill" style="width:50%;background:var(--orange)"></div></div>
+              <span class="analysis-val" style="color:var(--orange)">~45–55% (упала с 75%)</span>
+            </div>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">52-нед. диапазон</span>
+            <span class="analysis-val">$86.62 — $212.19</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">🏦 Консенсус (38 аналитиков)</span>
+            <span class="analysis-val" style="color:var(--green)">Strong Buy · цель $263</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">📅 Следующий катализатор</span>
+            <span class="analysis-val" style="color:var(--green)">GTC-конференция 16 марта 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WARNING -->
+      <div class="warning-box">
+        <span class="risk-icon">⚡</span>
+        <span><strong style="color:var(--orange)">Бинарная ситуация.</strong> Фундаментально бизнес рекордный. Технически — sell-the-news после отчёта, акция под давлением. Выбери свою стратегию ниже и работай строго по ней.</span>
+      </div>
+
+      <!-- SCENARIO BUTTONS -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">📌</span> Выбери сценарий</div>
+        <div class="scn-bar">
+          <button class="scn-btn bull" onclick="switchScn('bull')">🟢 БЫЧИЙ — покупка</button>
+          <button class="scn-btn bear" onclick="switchScn('bear')">🔴 МЕДВЕЖИЙ — хедж</button>
+        </div>
+      </div>
+
+      <!-- BULL -->
+      <div class="scn-panel active" id="scn-bull">
+
+        <!-- STOCK -->
+        <div class="section">
+          <div class="section-title"><span class="section-icon">📌</span> Идея 1 — покупка акции</div>
+          <div class="trade-box">
+            <div class="trade-header">
+              <span class="trade-type type-stock">📈 АКЦИЯ</span>
+              <span class="trade-risk">Риск/профит ≈ 1 : 1.5</span>
+            </div>
+            <div class="trade-rows">
+              <div class="trade-row"><span class="trade-key">Вход (частями)</span><span class="trade-val">$175–180 и ниже до $170</span></div>
+              <div class="trade-row"><span class="trade-key">Цель 1</span><span class="trade-val green">$200 (+13%) — после GTC 16 марта</span></div>
+              <div class="trade-row"><span class="trade-key">Цель 2</span><span class="trade-val green">$210–215 (+20%) — к ATH</span></div>
+              <div class="trade-row"><span class="trade-key">Стоп</span><span class="trade-val red">$160 (закрытие дня ниже 200 SMA)</span></div>
+              <div class="trade-row"><span class="trade-key">Горизонт</span><span class="trade-val">3–6 недель (до/после GTC)</span></div>
+              <hr class="divider">
+              <div class="trade-row"><span class="trade-key">На портфель $1k</span><span class="trade-val yellow">~$80–100 (~1 акция)</span></div>
+              <div class="trade-row"><span class="trade-key">На портфель $5k</span><span class="trade-val yellow">~$400–500 (~2–3 акции)</span></div>
+              <div class="trade-row"><span class="trade-key">На портфель $10k</span><span class="trade-val yellow">~$800–1 000 (~5–6 акций)</span></div>
+              <div class="trade-row"><span class="trade-key">Потенциал прибыли</span><span class="trade-val green">$100–130 на $1 000 вложенных</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BULL PUT SPREAD -->
+        <div class="section">
+          <div class="section-title"><span class="section-icon">⚙️</span> Идея 2 — опцион (основная)</div>
+          <div class="trade-box">
+            <div class="trade-header">
+              <span class="trade-type type-bull-put">💰 BULL PUT SPREAD</span>
+              <span class="trade-risk">Зарабатываем на удержании $167</span>
+            </div>
+            <div class="trade-rows">
+              <div class="trade-row"><span class="trade-key">Стратегия</span><span class="trade-val">Продаём пут $170, покупаем пут $160</span></div>
+              <div class="trade-row"><span class="trade-key">Sell Put $170 (bid)</span><span class="trade-val">~$6.80 кредит</span></div>
+              <div class="trade-row"><span class="trade-key">Buy Put $160 (ask)</span><span class="trade-val">~$3.90 дебет</span></div>
+              <div class="trade-row"><span class="trade-key">Чистый кредит</span><span class="trade-val green">~$2.90 = $290 / контракт</span></div>
+              <div class="trade-row"><span class="trade-key">Break-even (снизу)</span><span class="trade-val">$167.10 (акция держится выше)</span></div>
+              <div class="trade-row"><span class="trade-key">Макс. прибыль (выше $170)</span><span class="trade-val green">$290 (+40.8% на маржу)</span></div>
+              <div class="trade-row"><span class="trade-key">Макс. убыток</span><span class="trade-val red">$710 (если ниже $160)</span></div>
+              <div class="trade-row"><span class="trade-key">Экспирация</span><span class="trade-val">21 марта 2026 (21 день)</span></div>
+              <hr class="divider">
+              <div class="trade-row"><span class="trade-key">Логика</span><span class="trade-val">Зона $166–170 — сильная поддержка. IV ~50% — продажа волатильности выгодна после её падения с 75%. GTC 16 марта удержит акцию.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEAR -->
+      <div class="scn-panel" id="scn-bear">
+        <div class="section">
+          <div class="section-title"><span class="section-icon">📌</span> Идея — защитный хедж</div>
+          <div class="trade-box">
+            <div class="trade-header">
+              <span class="trade-type type-bear-put">🔴 BEAR PUT SPREAD</span>
+              <span class="trade-risk">Cisco-сценарий</span>
+            </div>
+            <div class="trade-rows">
+              <div class="trade-row"><span class="trade-key">Стратегия</span><span class="trade-val">Покупаем пут $170, продаём пут $155</span></div>
+              <div class="trade-row"><span class="trade-key">Buy Put $170 (ask)</span><span class="trade-val">~$9.50 дебет</span></div>
+              <div class="trade-row"><span class="trade-key">Sell Put $155 (bid)</span><span class="trade-val">~$4.20 кредит</span></div>
+              <div class="trade-row"><span class="trade-key">Чистый дебет</span><span class="trade-val yellow">~$5.30 = $530 / контракт</span></div>
+              <div class="trade-row"><span class="trade-key">Break-even (сверху)</span><span class="trade-val">$164.70 (акция падает ниже)</span></div>
+              <div class="trade-row"><span class="trade-key">Макс. прибыль (ниже $155)</span><span class="trade-val green">$970 (+183% ROI)</span></div>
+              <div class="trade-row"><span class="trade-key">Макс. убыток</span><span class="trade-val red">$530 (весь дебет)</span></div>
+              <div class="trade-row"><span class="trade-key">Экспирация</span><span class="trade-val">21 марта — 18 апреля 2026</span></div>
+              <hr class="divider">
+              <div class="trade-row"><span class="trade-key">⚠️ Когда актуально</span><span class="trade-val red">Снижение AI-капекса у Big Tech или плохой GTC</span></div>
+              <div class="trade-row"><span class="trade-key">Размер позиции</span><span class="trade-val orange">Не более 3–5% портфеля</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;font-size:13px;color:var(--muted);line-height:1.65;">
+          ⚠️ Медвежий сценарий — <strong style="color:var(--text)">страховка, не основная позиция.</strong> $95.2 млрд обязательств TSMC — реальный риск. При замедлении спроса Cisco-2001 повторим. Используй малую долю портфеля.
+        </div>
+      </div>
+
+      <!-- PLAIN WORDS -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">💬</span> Простыми словами</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;font-size:14px;color:var(--muted);line-height:1.65;">
+          Nvidia только что сдала лучший квартал в истории компании — $68 млрд выручки, все прогнозы побиты. Но акция всё равно упала на 5.5%. Это нормально — называется "sell the news". Умные деньги продавали ожидания, а не результат. Теперь до <strong style="color:var(--text)">GTC 16 марта</strong> — конференции где Дженсен Хуанг покажет следующее поколение чипов Vera Rubin — есть окно для входа. Работаем строго со стопом $160 (200-дневная скользящая средняя).
+        </div>
+      </div>
+
+      <!-- RISK -->
+      <div class="risk-box">
+        <span class="risk-icon">⚠️</span>
+        <span>
+          <strong style="color:var(--text)">По рынку:</strong> тарифы Трампа на полупроводники и замедление AI-капекса у Big Tech — главные внешние риски. VIX вырос до 21+.<br><br>
+          <strong style="color:var(--text)">По активу:</strong> обязательства TSMC $95.2 млрд (предупреждение Бёрри). Акция технически ниже 50 SMA ($185) — momentum слабый. Gaming и Auto сегменты немного разочаровали в Q4.<br><br>
+          <strong style="color:var(--text)">Налоговый момент:</strong> при фиксации убытка используй tax-loss harvesting.
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    Данные проверены по состоянию на 27–28 февраля 2026. Цена закрытия $177.19 (NASDAQ). Это не является индивидуальной инвестиционной рекомендацией. Торговля на рынках сопряжена с риском потери капитала.
+  </div>
+
+</div>
+
+<script>
+function switchScn(name) {
+  const btns = document.querySelectorAll('.scn-btn');
+  btns[0].className = 'scn-btn' + (name==='bull' ? ' bull' : '');
+  btns[1].className = 'scn-btn' + (name==='bear' ? ' bear' : '');
+  document.querySelectorAll('.scn-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('scn-' + name).classList.add('active');
+}
+// init
+document.querySelectorAll('.scn-btn')[0].classList.add('bull');
+</script>
+</body>
+</html>
