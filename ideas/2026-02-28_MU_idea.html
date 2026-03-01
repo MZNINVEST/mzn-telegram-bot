@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MZN Invest — MU Торговая Идея 28.02.2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --card: #13161e;
+    --surface: #1a1e2a;
+    --border: #252a38;
+    --green: #00e599;
+    --green-dim: rgba(0,229,153,0.12);
+    --red: #ff4d6a;
+    --red-dim: rgba(255,77,106,0.1);
+    --yellow: #ffd166;
+    --yellow-dim: rgba(255,209,102,0.1);
+    --blue: #4ea8de;
+    --blue-dim: rgba(78,168,222,0.1);
+    --orange: #ff9f43;
+    --orange-dim: rgba(255,159,67,0.1);
+    --text: #e8eaf2;
+    --muted: #6b7394;
+    --ticker: #ff4d6a;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Golos Text', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .wrapper { width:100%; max-width:640px; display:flex; flex-direction:column; gap:12px; }
+
+  .topbar {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px; background:var(--card);
+    border:1px solid var(--border); border-radius:16px;
+  }
+  .channel-name { font-family:'Unbounded',sans-serif; font-size:13px; font-weight:600; color:var(--green); letter-spacing:0.05em; }
+  .date-badge { font-size:12px; color:var(--muted); }
+  .verified-badge {
+    display:inline-flex; align-items:center; gap:5px;
+    background:var(--green-dim); border:1px solid rgba(0,229,153,0.3);
+    border-radius:8px; padding:4px 10px;
+    font-size:11px; color:var(--green); font-weight:600;
+  }
+
+  .card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:20px; overflow:hidden;
+    animation:slideUp 0.5s ease both;
+  }
+  @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .card-header {
+    padding:24px 24px 20px; border-bottom:1px solid var(--border);
+    position:relative; overflow:hidden;
+  }
+  .card-header::before {
+    content:''; position:absolute; top:-40px; right:-40px;
+    width:180px; height:180px;
+    background:radial-gradient(circle,rgba(255,77,106,0.06) 0%,transparent 70%);
+    pointer-events:none;
+  }
+
+  .header-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px; }
+  .ticker-block { display:flex; flex-direction:column; gap:4px; }
+  .ticker { font-family:'Unbounded',sans-serif; font-size:28px; font-weight:800; color:var(--ticker); letter-spacing:-0.02em; }
+  .company-name { font-size:13px; color:var(--muted); font-weight:500; }
+
+  .signal-badge {
+    display:flex; align-items:center; gap:6px;
+    background:var(--red-dim); border:1px solid rgba(255,77,106,0.35);
+    border-radius:10px; padding:8px 14px;
+  }
+  .signal-dot { width:8px; height:8px; background:var(--red); border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(0.8)} }
+  .signal-text { font-family:'Unbounded',sans-serif; font-size:11px; font-weight:600; color:var(--red); text-transform:uppercase; letter-spacing:0.08em; }
+
+  .headline { font-family:'Unbounded',sans-serif; font-size:15px; font-weight:600; color:var(--text); line-height:1.5; margin-bottom:10px; }
+  .trigger-text { font-size:14px; color:var(--muted); line-height:1.6; }
+  .trigger-text strong { color:var(--text); font-weight:600; }
+
+  .price-grid { display:grid; grid-template-columns:1fr 1fr 1fr; border-bottom:1px solid var(--border); }
+  .price-cell { padding:16px 20px; border-right:1px solid var(--border); display:flex; flex-direction:column; gap:5px; }
+  .price-cell:last-child { border-right:none; }
+  .price-label { font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); font-weight:600; }
+  .price-value { font-family:'Unbounded',sans-serif; font-size:18px; font-weight:700; }
+  .price-value.current { color:var(--text); }
+  .price-value.target  { color:var(--red); }
+  .price-value.stop    { color:var(--yellow); }
+  .price-pct { font-size:11px; font-weight:600; padding:2px 7px; border-radius:5px; display:inline-block; width:fit-content; }
+  .pct-green  { background:var(--green-dim);  color:var(--green); }
+  .pct-red    { background:var(--red-dim);    color:var(--red); }
+  .pct-yellow { background:var(--yellow-dim); color:var(--yellow); }
+
+  .card-body { padding:20px 24px; display:flex; flex-direction:column; gap:16px; }
+  .section { display:flex; flex-direction:column; gap:10px; }
+  .section-title { display:flex; align-items:center; gap:8px; font-family:'Unbounded',sans-serif; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+  .section-icon { font-size:14px; }
+
+  .trade-box { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .trade-header { padding:12px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .trade-type { font-family:'Unbounded',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.08em; padding:4px 10px; border-radius:6px; }
+  .type-short    { background:var(--red-dim);    color:var(--red);    border:1px solid rgba(255,77,106,0.25); }
+  .type-bear-put { background:var(--red-dim);    color:var(--red);    border:1px solid rgba(255,77,106,0.25); }
+  .type-long-put { background:var(--orange-dim); color:var(--orange); border:1px solid rgba(255,159,67,0.25); }
+  .trade-risk { font-size:11px; color:var(--muted); }
+
+  .trade-rows { padding:14px 16px; display:flex; flex-direction:column; gap:8px; }
+  .trade-row  { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+  .trade-key  { font-size:13px; color:var(--muted); white-space:nowrap; flex-shrink:0; }
+  .trade-val  { font-size:13px; color:var(--text); font-weight:500; text-align:right; }
+  .trade-val.green  { color:var(--green);  font-weight:600; }
+  .trade-val.red    { color:var(--red);    font-weight:600; }
+  .trade-val.yellow { color:var(--yellow); font-weight:600; }
+  .trade-val.orange { color:var(--orange); font-weight:600; }
+
+  .analysis-table { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .analysis-row   { display:flex; align-items:center; justify-content:space-between; padding:11px 16px; border-bottom:1px solid var(--border); }
+  .analysis-row:last-child { border-bottom:none; }
+  .analysis-key   { font-size:13px; color:var(--muted); display:flex; align-items:center; gap:6px; }
+  .analysis-val   { font-size:13px; color:var(--text); font-weight:500; }
+
+  .bar-wrap { display:flex; align-items:center; gap:8px; }
+  .mini-bar { height:4px; border-radius:2px; background:var(--border); width:80px; position:relative; overflow:hidden; }
+  .mini-bar-fill { height:100%; border-radius:2px; position:absolute; left:0; top:0; animation:barGrow 1s ease both 0.3s; }
+  @keyframes barGrow { from{width:0} }
+
+  .risk-box { background:var(--red-dim); border:1px solid rgba(255,77,106,0.2); border-radius:12px; padding:12px 16px; font-size:13px; color:var(--muted); line-height:1.5; display:flex; gap:10px; align-items:flex-start; }
+  .risk-icon { font-size:16px; flex-shrink:0; margin-top:1px; }
+
+  .catalyst-item { display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--text); line-height:1.5; }
+  .catalyst-dot  { width:6px; height:6px; background:var(--red); border-radius:50%; flex-shrink:0; margin-top:6px; }
+  .catalyst-dot.green { background:var(--green); }
+
+  .divider { border:none; border-top:1px solid var(--border); margin:4px 0; }
+
+  .prob-bar-wrap { display:flex; flex-direction:column; gap:6px; }
+  .prob-label { display:flex; justify-content:space-between; font-size:12px; }
+  .prob-bar-bg { background:var(--border); border-radius:4px; height:6px; overflow:hidden; }
+  .prob-bar-fill { height:100%; border-radius:4px; animation:barGrow 1s ease both 0.5s; }
+
+  .disclaimer { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px 20px; font-size:11px; color:var(--muted); text-align:center; line-height:1.5; }
+
+  @media(max-width:480px){
+    .price-grid{grid-template-columns:1fr 1fr}
+    .price-cell:nth-child(2){border-right:none}
+    .price-cell:nth-child(3){grid-column:1/-1;border-top:1px solid var(--border)}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BACK NAV -->
+<nav style="position:fixed;top:0;left:0;right:0;background:#13161e;border-bottom:1px solid #252a38;padding:0 20px;height:50px;display:flex;align-items:center;gap:12px;z-index:200;">
+  <a href="../index.html" style="font-size:14px;font-weight:700;color:#00e599;text-decoration:none;flex-shrink:0;">MZNInvest</a>
+  <span style="color:#252a38;">|</span>
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid #252a38;color:#6b7394;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;" onmouseover="this.style.borderColor='#00e599';this.style.color='#00e599'" onmouseout="this.style.borderColor='#252a38';this.style.color='#6b7394'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    На главную
+  </a>
+  <span style="color:#4a5568;font-size:12px;">/ Торговые идеи / MU</span>
+</nav>
+
+<div class="wrapper" style="margin-top:62px;">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <span class="channel-name">⚡ MZN INVEST</span>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="verified-badge">✓ Данные проверены</span>
+      <span class="date-badge">28 февраля 2026 · Идея #4</span>
+    </div>
+  </div>
+
+  <!-- CARD -->
+  <div class="card" style="animation-delay:0.05s">
+
+    <!-- HEADER -->
+    <div class="card-header">
+      <div class="header-top">
+        <div class="ticker-block">
+          <span class="ticker">MU</span>
+          <span class="company-name">Micron Technology · NASDAQ</span>
+        </div>
+        <div class="signal-badge">
+          <div class="signal-dot"></div>
+          <span class="signal-text">Шорт / Хедж</span>
+        </div>
+      </div>
+      <div class="headline">Micron тестирует сопротивление $420 — ждём отката к $390 📉</div>
+      <div class="trigger-text">
+        Micron — крупнейший производитель памяти DRAM и NAND, главный бенефициар AI-бума. Акция выросла <strong>+351% за год</strong>, сейчас торгуется выше среднего таргета аналитиков. При нарастающей геополитической напряжённости и IV <strong>~116%</strong> — зона $420 выглядит как локальный потолок. Мой сценарий: откат к $390 до отчёта <strong>18 марта</strong>.
+      </div>
+    </div>
+
+    <!-- PRICE STRIP -->
+    <div class="price-grid">
+      <div class="price-cell">
+        <span class="price-label">Цена (28.02.2026)</span>
+        <span class="price-value current">$410.31</span>
+        <span class="price-pct pct-yellow">Дневной диап: $401–$418</span>
+      </div>
+      <div class="price-cell">
+        <span class="price-label">🎯 Цель (откат)</span>
+        <span class="price-value target">$390</span>
+        <span class="price-pct pct-red">-4.9% движение</span>
+      </div>
+      <div class="price-cell">
+        <span class="price-label">🛑 Стоп (шорт)</span>
+        <span class="price-value stop">$454</span>
+        <span class="price-pct pct-yellow">выше исторического ATH</span>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="card-body">
+
+      <!-- CATALYSTS -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">🔥</span> Логика идеи</div>
+        <div class="analysis-table">
+          <div style="padding:12px 16px;display:flex;flex-direction:column;gap:10px;">
+            <div class="catalyst-item">
+              <div class="catalyst-dot"></div>
+              <span>Акция выросла на <strong style="color:var(--text)">+351% за год</strong> и торгуется выше среднего таргета аналитиков $357. Фундаментальный разрыв -15% — коррекция к среднему логична.</span>
+            </div>
+            <div class="catalyst-item">
+              <div class="catalyst-dot"></div>
+              <span>Зона $420 — ближайшее сопротивление. Вероятность снижения ниже $371 к концу марта: <strong style="color:var(--text)">40%</strong> по опционному рынку.</span>
+            </div>
+            <div class="catalyst-item">
+              <div class="catalyst-dot"></div>
+              <span>Геополитика и макро-риски давят на весь tech-сектор. Сектор памяти крайне чувствителен к замедлению глобального спроса.</span>
+            </div>
+            <div class="catalyst-item">
+              <div class="catalyst-dot green"></div>
+              <span><strong style="color:var(--green)">Контраргумент:</strong> HBM4 полностью раскуплен на весь 2026. Отчёт 18 марта — прогноз EPS $8.42 (+76% г/г). Шорт — краткосрочная тактика, не тренд.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TECH -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">📊</span> Технический анализ</div>
+        <div class="analysis-table">
+          <div class="analysis-row">
+            <span class="analysis-key">📍 Поддержка 1</span>
+            <span class="analysis-val" style="color:var(--green)">$390–395 (средний таргет)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">📍 Поддержка 2</span>
+            <span class="analysis-val">$371 (нижняя граница вероятности)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">🎯 Сопротивление (вход шорт)</span>
+            <span class="analysis-val" style="color:var(--red)">$420–425 (разворот)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">🏔 Исторический максимум (ATH)</span>
+            <span class="analysis-val" style="color:var(--yellow)">$455.50 (стоп шорта)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">52-нед. диапазон</span>
+            <span class="analysis-val">$61.54 — $455.50</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">Implied Volatility</span>
+            <div class="bar-wrap">
+              <div class="mini-bar"><div class="mini-bar-fill" style="width:80%;background:var(--red)"></div></div>
+              <span class="analysis-val" style="color:var(--red)">~116% — экстремально высокая</span>
+            </div>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">📅 Следующий отчёт</span>
+            <span class="analysis-val" style="color:var(--yellow)">18 марта 2026 · EPS прогноз $8.42</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">🏦 Консенсус (28 аналитиков)</span>
+            <span class="analysis-val" style="color:var(--green)">Buy · средний таргет $357</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBABILITY -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">🎲</span> Вероятностный анализ к концу марта</div>
+        <div class="analysis-table" style="padding:14px 16px;">
+          <div class="prob-bar-wrap">
+            <div class="prob-label"><span style="font-size:13px;color:var(--muted)">Выше $420 (выход вверх)</span><span style="font-size:13px;color:var(--green);font-weight:600">~35%</span></div>
+            <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:35%;background:var(--green)"></div></div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="prob-bar-wrap">
+            <div class="prob-label"><span style="font-size:13px;color:var(--muted)">$371–$420 (боковик / умеренный откат)</span><span style="font-size:13px;color:var(--yellow);font-weight:600">~25%</span></div>
+            <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:25%;background:var(--yellow)"></div></div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="prob-bar-wrap">
+            <div class="prob-label"><span style="font-size:13px;color:var(--muted)">Ниже $371 (медвежий сценарий)</span><span style="font-size:13px;color:var(--red);font-weight:600">~40%</span></div>
+            <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:40%;background:var(--red)"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDEA 1: BEAR PUT SPREAD -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">⚙️</span> Идея 1 — опцион (основная)</div>
+        <div class="trade-box">
+          <div class="trade-header">
+            <span class="trade-type type-bear-put">🔴 BEAR PUT SPREAD</span>
+            <span class="trade-risk">Риск/профит ≈ 1 : 1.4</span>
+          </div>
+          <div class="trade-rows">
+            <div class="trade-row"><span class="trade-key">Стратегия</span><span class="trade-val">Покупаем пут $410, продаём пут $390</span></div>
+            <div class="trade-row"><span class="trade-key">📅 Экспирация</span><span class="trade-val">20 марта 2026 (20 дней)</span></div>
+            <hr class="divider">
+            <div class="trade-row"><span class="trade-key">Buy Put $410 (ATM)</span><span class="trade-val red">~$20.00–22.00 ask</span></div>
+            <div class="trade-row"><span class="trade-key">Sell Put $390 (OTM)</span><span class="trade-val green">~$11.50–13.00 bid</span></div>
+            <div class="trade-row"><span class="trade-key">Чистый дебет</span><span class="trade-val yellow">~$8.50–9.00 = $850–900 / контракт</span></div>
+            <hr class="divider">
+            <div class="trade-row"><span class="trade-key">Break-even</span><span class="trade-val">~$401.50 (-2.1% от текущей)</span></div>
+            <div class="trade-row"><span class="trade-key">Макс. прибыль (ниже $390)</span><span class="trade-val green">~$1 100–1 150 на контракт</span></div>
+            <div class="trade-row"><span class="trade-key">Макс. убыток</span><span class="trade-val red">$850–900 (весь дебет)</span></div>
+            <div class="trade-row"><span class="trade-key">ROI при цели $390</span><span class="trade-val green">+128%</span></div>
+            <hr class="divider">
+            <div class="trade-row"><span class="trade-key">Логика</span><span class="trade-val">IV 116% делает продажу нижнего пута выгодной — снижаем стоимость позиции. Спред защищён от временного распада лучше голого пута.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDEA 2: LONG PUT -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">📌</span> Идея 2 — агрессивный пут (альтернатива)</div>
+        <div class="trade-box">
+          <div class="trade-header">
+            <span class="trade-type type-long-put">⚡ LONG PUT $400</span>
+            <span class="trade-risk">При ожидании глубокого обвала</span>
+          </div>
+          <div class="trade-rows">
+            <div class="trade-row"><span class="trade-key">Инструмент</span><span class="trade-val">Buy Put $400 · Mar 20, 2026</span></div>
+            <div class="trade-row"><span class="trade-key">Стоимость</span><span class="trade-val yellow">~$24.65 = $2 465 / контракт</span></div>
+            <div class="trade-row"><span class="trade-key">Break-even</span><span class="trade-val">$375.35 (-8.5% от текущей)</span></div>
+            <div class="trade-row"><span class="trade-key">При падении к $371</span><span class="trade-val green">Прибыль ~$4.35 = $435 / контракт</span></div>
+            <div class="trade-row"><span class="trade-key">Макс. убыток</span><span class="trade-val red">$2 465 (весь дебет если выше $400)</span></div>
+            <hr class="divider">
+            <div class="trade-row"><span class="trade-key">⚠️ Внимание</span><span class="trade-val orange">При IV 116% временной распад (Theta) разрушает стоимость очень быстро. Только при уверенности в резком движении вниз.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDEA 3: SHORT STOCK -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">📌</span> Идея 3 — шорт акции</div>
+        <div class="trade-box">
+          <div class="trade-header">
+            <span class="trade-type type-short">📉 ШОРТ АКЦИИ</span>
+            <span class="trade-risk">Риск/профит ≈ 1 : 1.3</span>
+          </div>
+          <div class="trade-rows">
+            <div class="trade-row"><span class="trade-key">Вход (при касании)</span><span class="trade-val">$420–425</span></div>
+            <div class="trade-row"><span class="trade-key">Цель основная</span><span class="trade-val green">$390 (-4.9%)</span></div>
+            <div class="trade-row"><span class="trade-key">Цель консервативная</span><span class="trade-val green">$400 (-2.4%)</span></div>
+            <div class="trade-row"><span class="trade-key">Стоп-лосс</span><span class="trade-val red">$454 (выше ATH $455.50)</span></div>
+            <div class="trade-row"><span class="trade-key">Горизонт</span><span class="trade-val">До 18 марта (отчёт)</span></div>
+            <hr class="divider">
+            <div class="trade-row"><span class="trade-key">⚠️ Закрыть ДО отчёта</span><span class="trade-val red">18 марта — EPS $8.42 прогноз. Удар вверх вероятен при биите.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLAIN WORDS -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">💬</span> Простыми словами</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;font-size:14px;color:var(--muted);line-height:1.65;">
+          Micron делает чипы памяти — без них не работает ни один смартфон, сервер или AI. Акция выросла на 350% за год и сейчас торгуется <strong style="color:var(--text)">выше того, что думают аналитики</strong>. Зона $420 — это потолок, где продавцы обычно побеждают. При этом опционный рынок говорит: 40% вероятность падения ниже $371 к концу марта. Играем краткосрочный откат до $390 через спред. <strong style="color:var(--text)">Обязательно закрываем позицию до отчёта 18 марта</strong> — иначе сильные цифры сметут шорт.
+        </div>
+      </div>
+
+      <!-- RISK -->
+      <div class="risk-box">
+        <span class="risk-icon">⚠️</span>
+        <span>
+          <strong style="color:var(--text)">AI-фактор:</strong> HBM4 полностью раскуплен на весь 2026. Спрос сильнее страхов — при позитивной отчётности откат отменяется.<br><br>
+          <strong style="color:var(--text)">Theta-риск:</strong> при IV 116% временной распад работает ПРОТИВ покупателя опционов. Long Put $400 теряет ~$200–300 в день без движения акции.<br><br>
+          <strong style="color:var(--text)">Отчёт 18 марта:</strong> прогноз EPS $8.42 (+76% г/г). При биите — резкий рост и убыток по шорту. Закрывай позицию не позже 14 марта.
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    Данные проверены: цена $410.31 (28.02.2026), ATH $455.50, отчёт 18.03.2026 (NASDAQ). Это не является индивидуальной инвестиционной рекомендацией. Торговля на рынках сопряжена с риском потери капитала.
+  </div>
+
+</div>
+
+<!-- BOTTOM BACK NAV -->
+<nav style="background:#13161e;border-top:1px solid #252a38;padding:18px 20px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <span style="color:#6b7394;font-size:13px;">Хотите посмотреть другие идеи?</span>
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid #252a38;color:#6b7394;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;" onmouseover="this.style.borderColor='#00e599';this.style.color='#00e599'" onmouseout="this.style.borderColor='#252a38';this.style.color='#6b7394'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Вернуться на главную
+  </a>
+</nav>
+
+</body>
+</html>
