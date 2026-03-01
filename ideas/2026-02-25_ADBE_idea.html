@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MZN Invest — ADBE Торговая Идея 25.02.2026</title>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --card: #161b26;
+      --card2: #1e2535;
+      --accent: #58a6ff;
+      --accent2: #7c3aed;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --green: #3fb950;
+      --text: #e2e8f0;
+      --muted: #8b949e;
+      --border: #30363d;
+      --radius: 14px;
+      --adbe: #eb1000;
+      --adbe2: #ff6840;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+    }
+    .container { max-width: 860px; margin: 0 auto; padding: 36px 20px 48px; }
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-dot {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--adbe), var(--adbe2));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px; color: #fff;
+    }
+    .brand-name { font-size: 18px; font-weight: 700; letter-spacing: .5px; }
+    .badge-date {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 6px 14px; font-size: 13px; color: var(--muted);
+    }
+    .hero {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px 28px; margin-bottom: 18px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--adbe), var(--adbe2));
+    }
+    .hero-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .ticker-block { display: flex; align-items: center; gap: 14px; }
+    .ticker-logo {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--adbe) 0%, var(--adbe2) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; color: #fff; letter-spacing: .3px;
+    }
+    .ticker-name { font-size: 28px; font-weight: 800; }
+    .ticker-full { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .rating-badge {
+      background: rgba(63,185,80,.12); border: 1px solid rgba(63,185,80,.3);
+      color: var(--green); border-radius: 8px;
+      padding: 6px 14px; font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .price-row { display: flex; align-items: baseline; gap: 12px; margin-top: 16px; }
+    .price-current { font-size: 42px; font-weight: 900; }
+    .price-change {
+      font-size: 16px; font-weight: 600;
+      background: rgba(63,185,80,.15); color: var(--green);
+      padding: 3px 10px; border-radius: 6px;
+    }
+    .price-target-row { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .pt-chip {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 6px 14px; font-size: 13px;
+    }
+    .pt-chip span { color: var(--green); font-weight: 700; }
+    .thesis {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px; margin-bottom: 18px;
+    }
+    .section-title {
+      font-size: 12px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+    }
+    .thesis-points { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .thesis-points li { display: flex; gap: 10px; font-size: 14px; line-height: 1.55; }
+    .thesis-points li::before { content: '▸'; color: var(--green); flex-shrink: 0; margin-top: 1px; }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px; margin-bottom: 18px;
+    }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+    }
+    .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 6px; }
+    .stat-value { font-size: 22px; font-weight: 800; }
+    .stat-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .green { color: var(--green); }
+    .purple { color: #a78bfa; }
+    .yellow { color: var(--yellow); }
+    .tabs-wrap { margin-bottom: 18px; }
+    .tabs {
+      display: flex; gap: 4px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 4px; margin-bottom: 16px;
+    }
+    .tab-btn {
+      flex: 1; padding: 9px; border: none; border-radius: 8px;
+      background: transparent; color: var(--muted);
+      font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s;
+    }
+    .tab-btn.active { background: linear-gradient(135deg, var(--adbe), var(--adbe2)); color: #fff; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .calc-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px 24px;
+    }
+    .calc-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .calc-desc { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+    .inputs-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px; margin-bottom: 20px;
+    }
+    .inp-group label {
+      display: block; font-size: 12px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .7px; margin-bottom: 6px;
+    }
+    .inp-group input {
+      width: 100%; background: var(--card2); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); padding: 10px 14px;
+      font-size: 15px; font-weight: 600; transition: border-color .2s;
+    }
+    .inp-group input:focus { outline: none; border-color: var(--green); }
+    .calc-btn {
+      width: 100%; padding: 12px;
+      background: linear-gradient(135deg, var(--adbe), var(--adbe2));
+      border: none; border-radius: 10px;
+      color: #fff; font-size: 15px; font-weight: 800;
+      cursor: pointer; transition: opacity .2s; margin-bottom: 20px;
+    }
+    .calc-btn:hover { opacity: .9; }
+    .results-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;
+    }
+    .result-box {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px; text-align: center;
+    }
+    .result-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .7px; margin-bottom: 6px; }
+    .result-val { font-size: 20px; font-weight: 800; }
+    .result-val.pos { color: var(--green); }
+    .result-val.neg { color: var(--red); }
+    .result-val.neu { color: var(--yellow); }
+    .risk-section {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px; margin-bottom: 18px;
+    }
+    .risk-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .risk-row:last-child { border-bottom: none; }
+    .risk-name { font-size: 14px; color: var(--muted); }
+    .risk-dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; display: inline-block; }
+    .risk-level { display: flex; align-items: center; font-size: 14px; font-weight: 600; }
+    .footer { margin-top: 28px; text-align: center; font-size: 12px; color: var(--muted); line-height: 1.7; }
+    .footer a { color: var(--accent); text-decoration: none; }
+    @media (max-width: 500px) { .price-current { font-size: 32px; } .hero-top { gap: 10px; } }
+  </style>
+</head>
+<body>
+
+<!-- TOP BACK NAV -->
+<nav style="background:#161b26;border-bottom:1px solid #30363d;padding:0 20px;height:50px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200;">
+  <a href="../index.html" style="font-size:14px;font-weight:700;color:#3fb950;text-decoration:none;flex-shrink:0;">MZNInvest</a>
+  <span style="color:#30363d;">|</span>
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid #30363d;color:#8b949e;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;" onmouseover="this.style.borderColor='#3fb950';this.style.color='#3fb950'" onmouseout="this.style.borderColor='#30363d';this.style.color='#8b949e'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    На главную
+  </a>
+  <span style="color:#4a5568;font-size:12px;">/ Торговые идеи / ADBE</span>
+</nav>
+
+<div class="container">
+  <div class="header">
+    <div class="brand">
+      <div class="brand-dot">M</div>
+      <div class="brand-name">MZN INVEST</div>
+    </div>
+    <div class="badge-date">25 февраля 2026</div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-top">
+      <div class="ticker-block">
+        <div class="ticker-logo">ADBE</div>
+        <div>
+          <div class="ticker-name">ADBE</div>
+          <div class="ticker-full">Adobe Inc. · NASDAQ</div>
+        </div>
+      </div>
+      <div class="rating-badge">📈 Лонг</div>
+    </div>
+    <div class="price-row">
+      <div class="price-current">$378.40</div>
+      <div class="price-change">+31% апсайд</div>
+    </div>
+    <div class="price-target-row">
+      <div class="pt-chip">Консенсус-цель: <span>$495</span></div>
+      <div class="pt-chip">Street-High: <span>$620</span></div>
+      <div class="pt-chip">Goldman: <span>$520</span></div>
+      <div class="pt-chip">Аналитиков: <span>30 (22 Buy)</span></div>
+    </div>
+  </div>
+
+  <div class="thesis">
+    <div class="section-title">Инвестиционный тезис</div>
+    <ul class="thesis-points">
+      <li>Adobe торгуется на 52-недельных минимумах из-за AI-страхов (Midjourney, Sora, Firefly) — но Firefly уже интегрирован и монетизируется: более 16 млрд AI-генераций в 2025 году.</li>
+      <li>Subscription-модель с 30% операционной маржой — устойчивый денежный поток $8+ млрд/год. ARR Creative Cloud растёт на 12–15% при росте AI-функций.</li>
+      <li>Акридитив: возможная экспансия в корпоративный AI-рынок с Firefly Enterprise — лицензирование B2B как новый источник выручки.</li>
+      <li>Технически: поддержка $360–375 многократно тестировалась, RSI перепродан. Исторически от этих уровней следовал рост 25–40%.</li>
+      <li>Катализаторы: отчёт Q1 FY2026 (март 2026), Adobe MAX 2026, рост DAU в Firefly/Express, возможные партнёрства в AI-инфраструктуре.</li>
+    </ul>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Цена сейчас</div>
+      <div class="stat-value">$378.40</div>
+      <div class="stat-sub">25 февр. 2026</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Консенсус PT</div>
+      <div class="stat-value green">$495</div>
+      <div class="stat-sub">+30.8% upside</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Street-High PT</div>
+      <div class="stat-value purple">$620</div>
+      <div class="stat-sub">Бычий сценарий</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Горизонт</div>
+      <div class="stat-value yellow">3–9 мес</div>
+      <div class="stat-sub">Среднесрочно</div>
+    </div>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('bcs')">📈 Bull Call Spread</button>
+      <button class="tab-btn" onclick="switchTab('stock')">🏦 Покупка акции</button>
+    </div>
+
+    <div id="tab-bcs" class="tab-panel active">
+      <div class="calc-card">
+        <div class="calc-title">Bull Call Spread</div>
+        <div class="calc-desc">Покупаем Call с более низким страйком, продаём Call с более высоким. Ограниченный риск, умеренный профит при восстановлении Adobe к справедливой стоимости.</div>
+        <div class="inputs-grid">
+          <div class="inp-group"><label>Текущая цена ($)</label><input type="number" id="bcs-spot" value="378.40" step="0.5" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Long Call страйк ($)</label><input type="number" id="bcs-k1" value="385" step="1" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Long Call премия ($)</label><input type="number" id="bcs-p1" value="14.50" step="0.1" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Short Call страйк ($)</label><input type="number" id="bcs-k2" value="450" step="1" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Short Call премия ($)</label><input type="number" id="bcs-p2" value="3.80" step="0.1" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Кол-во спредов</label><input type="number" id="bcs-qty" value="1" min="1" step="1" oninput="calcBCS()"></div>
+        </div>
+        <button class="calc-btn" onclick="calcBCS()">Рассчитать</button>
+        <div class="results-grid">
+          <div class="result-box"><div class="result-label">Чистый дебет</div><div class="result-val neg" id="bcs-debit">—</div></div>
+          <div class="result-box"><div class="result-label">Точка безубытка</div><div class="result-val neu" id="bcs-be">—</div></div>
+          <div class="result-box"><div class="result-label">Макс. прибыль</div><div class="result-val pos" id="bcs-maxp">—</div></div>
+          <div class="result-box"><div class="result-label">Макс. убыток</div><div class="result-val neg" id="bcs-maxl">—</div></div>
+          <div class="result-box"><div class="result-label">ROI</div><div class="result-val pos" id="bcs-roi">—</div></div>
+          <div class="result-box"><div class="result-label">Risk/Reward</div><div class="result-val neu" id="bcs-rr">—</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-stock" class="tab-panel">
+      <div class="calc-card">
+        <div class="calc-title">Покупка акции</div>
+        <div class="calc-desc">Простая покупка акции с расчётом прибыли при достижении целевых уровней аналитиков. Подходит для долгосрочного портфеля с апсайдом 30–65%.</div>
+        <div class="inputs-grid">
+          <div class="inp-group"><label>Цена входа ($)</label><input type="number" id="st-entry" value="378.40" step="0.5" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Кол-во акций</label><input type="number" id="st-qty" value="5" min="1" step="1" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Цель #1 — Консенсус ($)</label><input type="number" id="st-t1" value="495" step="1" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Цель #2 — Goldman ($)</label><input type="number" id="st-t2" value="520" step="1" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Цель #3 — Street-High ($)</label><input type="number" id="st-t3" value="620" step="1" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Стоп-лосс ($)</label><input type="number" id="st-stop" value="330" step="1" oninput="calcStock()"></div>
+        </div>
+        <button class="calc-btn" onclick="calcStock()">Рассчитать</button>
+        <div class="results-grid">
+          <div class="result-box"><div class="result-label">Вложено</div><div class="result-val neu" id="st-invested">—</div></div>
+          <div class="result-box"><div class="result-label">Прибыль @T1</div><div class="result-val pos" id="st-p1">—</div></div>
+          <div class="result-box"><div class="result-label">Прибыль @T2</div><div class="result-val pos" id="st-p2">—</div></div>
+          <div class="result-box"><div class="result-label">Прибыль @T3</div><div class="result-val pos" id="st-p3">—</div></div>
+          <div class="result-box"><div class="result-label">Стоп-убыток</div><div class="result-val neg" id="st-loss">—</div></div>
+          <div class="result-box"><div class="result-label">R/R к T1</div><div class="result-val neu" id="st-rr">—</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="risk-section">
+    <div class="section-title">Ключевые риски</div>
+    <div class="risk-row"><div class="risk-name">AI-дизраптеры (Midjourney, Sora, OpenAI) вытесняют Creative Cloud</div><div class="risk-level"><span class="risk-dot" style="background:var(--red)"></span>Высокий</div></div>
+    <div class="risk-row"><div class="risk-name">Замедление роста ARR при отказе пользователей от подписки</div><div class="risk-level"><span class="risk-dot" style="background:var(--yellow)"></span>Средний</div></div>
+    <div class="risk-row"><div class="risk-name">Сжатие мультипликаторов при росте ставок</div><div class="risk-level"><span class="risk-dot" style="background:var(--yellow)"></span>Средний</div></div>
+    <div class="risk-row"><div class="risk-name">Разочарование на квартальном отчёте (март 2026)</div><div class="risk-level"><span class="risk-dot" style="background:var(--yellow)"></span>Средний</div></div>
+    <div class="risk-row"><div class="risk-name">Общая коррекция рынка / tech sell-off</div><div class="risk-level"><span class="risk-dot" style="background:var(--green)"></span>Низкий</div></div>
+  </div>
+
+  <div class="footer">
+    <strong>MZN INVEST</strong> · Закрытый инвестиционный канал<br>
+    Материал носит исключительно образовательный и информационный характер.<br>
+    Не является инвестиционной рекомендацией. Опционы несут высокий риск потери капитала.<br>
+    Данные: Goldman Sachs, MarketBeat, Adobe IR · <span id="gen-date"></span>
+  </div>
+</div>
+
+<!-- BOTTOM BACK NAV -->
+<nav style="background:#161b26;border-top:1px solid #30363d;padding:18px 20px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <span style="color:#8b949e;font-size:13px;">Хотите посмотреть другие идеи?</span>
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid #30363d;color:#8b949e;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;" onmouseover="this.style.borderColor='#3fb950';this.style.color='#3fb950'" onmouseout="this.style.borderColor='#30363d';this.style.color='#8b949e'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Вернуться на главную
+  </a>
+</nav>
+
+<script>
+  document.getElementById('gen-date').textContent = new Date().toLocaleDateString('ru-RU', {day:'2-digit',month:'long',year:'numeric'});
+  function fmt(n) { if (isNaN(n)) return '—'; return '$' + Math.abs(n).toFixed(2); }
+  function fmtPct(n) { if (isNaN(n) || !isFinite(n)) return '—'; return (n >= 0 ? '+' : '') + n.toFixed(1) + '%'; }
+  function switchTab(id) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+    if (id === 'bcs') calcBCS(); if (id === 'stock') calcStock();
+  }
+  function calcBCS() {
+    const spot=+document.getElementById('bcs-spot').value, k1=+document.getElementById('bcs-k1').value, p1=+document.getElementById('bcs-p1').value, k2=+document.getElementById('bcs-k2').value, p2=+document.getElementById('bcs-p2').value, qty=+document.getElementById('bcs-qty').value;
+    const net=(p1-p2)*qty*100, be=k1+(p1-p2), maxP=(k2-k1-(p1-p2))*qty*100, maxL=net, roi=(maxP/maxL)*100, rr=maxP/maxL;
+    document.getElementById('bcs-debit').textContent='-'+fmt(net);
+    document.getElementById('bcs-be').textContent=fmt(be);
+    document.getElementById('bcs-maxp').textContent='+'+fmt(maxP);
+    document.getElementById('bcs-maxl').textContent='-'+fmt(maxL);
+    document.getElementById('bcs-roi').textContent=fmtPct(roi);
+    document.getElementById('bcs-rr').textContent=isFinite(rr)?'1 : '+rr.toFixed(2):'—';
+  }
+  function calcStock() {
+    const entry=+document.getElementById('st-entry').value, qty=+document.getElementById('st-qty').value, t1=+document.getElementById('st-t1').value, t2=+document.getElementById('st-t2').value, t3=+document.getElementById('st-t3').value, stop=+document.getElementById('st-stop').value;
+    const invested=entry*qty, p1=(t1-entry)*qty, p2=(t2-entry)*qty, p3=(t3-entry)*qty, loss=(stop-entry)*qty, rr=Math.abs(p1/loss);
+    document.getElementById('st-invested').textContent=fmt(invested);
+    document.getElementById('st-p1').textContent=(p1>=0?'+':'')+fmt(p1)+' ('+fmtPct((t1-entry)/entry*100)+')';
+    document.getElementById('st-p2').textContent=(p2>=0?'+':'')+fmt(p2)+' ('+fmtPct((t2-entry)/entry*100)+')';
+    document.getElementById('st-p3').textContent=(p3>=0?'+':'')+fmt(p3)+' ('+fmtPct((t3-entry)/entry*100)+')';
+    document.getElementById('st-loss').textContent=fmt(loss)+' ('+fmtPct((stop-entry)/entry*100)+')';
+    document.getElementById('st-rr').textContent='1 : '+rr.toFixed(2);
+  }
+  calcBCS(); calcStock();
+</script>
+
+</body>
+</html>
