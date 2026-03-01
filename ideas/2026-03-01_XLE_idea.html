@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MZN Invest — XLE Торговая Идея 01.03.2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --card: #13161e;
+    --surface: #1a1e2a;
+    --border: #252a38;
+    --green: #00e599;
+    --green-dim: rgba(0,229,153,0.12);
+    --red: #ff4d6a;
+    --red-dim: rgba(255,77,106,0.1);
+    --yellow: #ffd166;
+    --yellow-dim: rgba(255,209,102,0.1);
+    --blue: #4ea8de;
+    --blue-dim: rgba(78,168,222,0.1);
+    --orange: #ff9f43;
+    --orange-dim: rgba(255,159,67,0.1);
+    --text: #e8eaf2;
+    --muted: #6b7394;
+    --ticker: #ffd166;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    font-family: 'Golos Text', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .wrapper { width:100%; max-width:640px; display:flex; flex-direction:column; gap:12px; }
+  .topbar {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px; background:var(--card);
+    border:1px solid var(--border); border-radius:16px;
+  }
+  .channel-name { font-family:'Unbounded',sans-serif; font-size:13px; font-weight:600; color:var(--green); letter-spacing:0.05em; }
+  .topbar-right { display:flex; align-items:center; gap:10px; }
+  .verified-badge { display:inline-flex; align-items:center; gap:5px; background:var(--green-dim); border:1px solid rgba(0,229,153,0.3); border-radius:8px; padding:4px 10px; font-size:11px; color:var(--green); font-weight:600; }
+  .date-badge { font-size:12px; color:var(--muted); }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:20px; overflow:hidden; animation:slideUp 0.5s ease both; }
+  @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .card-header { padding:24px 24px 20px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .card-header::before { content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; background:radial-gradient(circle,rgba(255,209,102,0.07) 0%,transparent 70%); pointer-events:none; }
+  .header-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px; }
+  .ticker-block { display:flex; flex-direction:column; gap:4px; }
+  .ticker { font-family:'Unbounded',sans-serif; font-size:28px; font-weight:800; color:var(--ticker); letter-spacing:-0.02em; }
+  .company-name { font-size:13px; color:var(--muted); font-weight:500; }
+  .signal-badge { display:flex; align-items:center; gap:6px; background:var(--red-dim); border:1px solid rgba(255,77,106,0.35); border-radius:10px; padding:8px 14px; }
+  .signal-dot { width:8px; height:8px; background:var(--red); border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(0.8)} }
+  .signal-text { font-family:'Unbounded',sans-serif; font-size:11px; font-weight:600; color:var(--red); text-transform:uppercase; letter-spacing:0.08em; }
+  .headline { font-family:'Unbounded',sans-serif; font-size:15px; font-weight:600; color:var(--text); line-height:1.5; margin-bottom:10px; }
+  .trigger-text { font-size:14px; color:var(--muted); line-height:1.6; }
+  .trigger-text strong { color:var(--text); font-weight:600; }
+  .price-grid { display:grid; grid-template-columns:1fr 1fr 1fr; border-bottom:1px solid var(--border); }
+  .price-cell { padding:16px 20px; border-right:1px solid var(--border); display:flex; flex-direction:column; gap:5px; }
+  .price-cell:last-child { border-right:none; }
+  .price-label { font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); font-weight:600; }
+  .price-value { font-family:'Unbounded',sans-serif; font-size:18px; font-weight:700; }
+  .price-value.current { color:var(--text); }
+  .price-value.target  { color:var(--green); }
+  .price-value.stop    { color:var(--red); }
+  .price-pct { font-size:11px; font-weight:600; padding:2px 7px; border-radius:5px; display:inline-block; width:fit-content; }
+  .pct-green  { background:var(--green-dim);  color:var(--green); }
+  .pct-red    { background:var(--red-dim);    color:var(--red); }
+  .pct-yellow { background:var(--yellow-dim); color:var(--yellow); }
+  .card-body { padding:20px 24px; display:flex; flex-direction:column; gap:16px; }
+  .section { display:flex; flex-direction:column; gap:10px; }
+  .section-title { display:flex; align-items:center; gap:8px; font-family:'Unbounded',sans-serif; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+  .section-icon { font-size:14px; }
+  .analysis-table { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .analysis-row   { display:flex; align-items:center; justify-content:space-between; padding:11px 16px; border-bottom:1px solid var(--border); }
+  .analysis-row:last-child { border-bottom:none; }
+  .analysis-key   { font-size:13px; color:var(--muted); display:flex; align-items:center; gap:6px; }
+  .analysis-val   { font-size:13px; color:var(--text); font-weight:500; }
+  .bar-wrap { display:flex; align-items:center; gap:8px; }
+  .mini-bar { height:4px; border-radius:2px; background:var(--border); width:80px; position:relative; overflow:hidden; }
+  .mini-bar-fill { height:100%; border-radius:2px; position:absolute; left:0; top:0; animation:barGrow 1s ease both 0.3s; }
+  @keyframes barGrow { from{width:0} }
+  .trade-box { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .trade-header { padding:12px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .trade-type { font-family:'Unbounded',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.08em; padding:4px 10px; border-radius:6px; }
+  .type-stock  { background:var(--blue-dim);   color:var(--blue);   border:1px solid rgba(78,168,222,0.25); }
+  .type-call   { background:var(--yellow-dim); color:var(--yellow); border:1px solid rgba(255,209,102,0.25); }
+  .type-spread { background:var(--green-dim);  color:var(--green);  border:1px solid rgba(0,229,153,0.25); }
+  .trade-risk { font-size:11px; color:var(--muted); }
+  .trade-rows { padding:14px 16px; display:flex; flex-direction:column; gap:8px; }
+  .trade-row  { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+  .trade-key  { font-size:13px; color:var(--muted); white-space:nowrap; flex-shrink:0; }
+  .trade-val  { font-size:13px; color:var(--text); font-weight:500; text-align:right; }
+  .trade-val.green  { color:var(--green);  font-weight:600; }
+  .trade-val.red    { color:var(--red);    font-weight:600; }
+  .trade-val.yellow { color:var(--yellow); font-weight:600; }
+  .trade-val.orange { color:var(--orange); font-weight:600; }
+  .risk-box { background:var(--red-dim); border:1px solid rgba(255,77,106,0.2); border-radius:12px; padding:12px 16px; font-size:13px; color:var(--muted); line-height:1.5; display:flex; gap:10px; align-items:flex-start; }
+  .risk-icon { font-size:16px; flex-shrink:0; margin-top:1px; }
+  .tax-box { background:var(--yellow-dim); border:1px solid rgba(255,209,102,0.25); border-radius:12px; padding:12px 16px; font-size:13px; color:var(--muted); line-height:1.5; display:flex; gap:10px; align-items:flex-start; }
+  .catalyst-item { display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--text); line-height:1.5; }
+  .catalyst-dot  { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:6px; }
+  .dot-green  { background:var(--green); }
+  .dot-red    { background:var(--red); }
+  .dot-yellow { background:var(--yellow); }
+  .dot-orange { background:var(--orange); }
+  .divider { border:none; border-top:1px solid var(--border); margin:4px 0; }
+  .disclaimer { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px 20px; font-size:11px; color:var(--muted); text-align:center; line-height:1.5; }
+  @media(max-width:480px){
+    .price-grid{grid-template-columns:1fr 1fr}
+    .price-cell:nth-child(2){border-right:none}
+    .price-cell:nth-child(3){grid-column:1/-1;border-top:1px solid var(--border)}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BACK NAV -->
+<nav style="position:fixed;top:0;left:0;right:0;background:#13161e;border-bottom:1px solid #252a38;padding:0 20px;height:50px;display:flex;align-items:center;gap:12px;z-index:200;">
+  <a href="../index.html" style="font-size:14px;font-weight:700;color:#00e599;text-decoration:none;flex-shrink:0;">MZNInvest</a>
+  <span style="color:#252a38;">|</span>
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid #252a38;color:#6b7394;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;" onmouseover="this.style.borderColor='#00e599';this.style.color='#00e599'" onmouseout="this.style.borderColor='#252a38';this.style.color='#6b7394'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    На главную
+  </a>
+  <span style="color:#4a5568;font-size:12px;">/ Торговые идеи / XLE</span>
+</nav>
+
+<div class="wrapper" style="margin-top:62px;">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <span class="channel-name">⚡ MZN INVEST</span>
+    <div class="topbar-right">
+      <span class="verified-badge">✓ Данные проверены</span>
+      <span class="date-badge">1 марта 2026 · Идея #5</span>
+    </div>
+  </div>
+
+  <!-- CARD -->
+  <div class="card" style="animation-delay:0.05s">
+
+    <!-- HEADER -->
+    <div class="card-header">
+      <div class="header-top">
+        <div class="ticker-block">
+          <span class="ticker">XLE</span>
+          <span class="company-name">Energy Select Sector SPDR ETF · NYSE Arca</span>
+        </div>
+        <div class="signal-badge">
+          <div class="signal-dot"></div>
+          <span class="signal-text">Спекуляция</span>
+        </div>
+      </div>
+      <div class="headline">Ормузский пролив закрыт — нефть взлетает, XLE на старте 🛢️</div>
+      <div class="trigger-text">
+        XLE торгуется у <strong>52-недельных максимумов ($55.93)</strong> при медвежьих технических индикаторах — парадокс. Виновник: <strong>геополитическая премия в нефти</strong>. Блокировка Ормузского пролива (20% мировых нефтяных поставок) — «чёрный лебедь», который в считанные дни может отправить XLE к $65+. Работаем через <strong>строго ограниченный риск</strong>, ставим не более 2–3% портфеля.
+      </div>
+    </div>
+
+    <!-- PRICE STRIP -->
+    <div class="price-grid">
+      <div class="price-cell">
+        <span class="price-label">Цена (27.02.2026)</span>
+        <span class="price-value current">$55.92</span>
+        <span class="price-pct pct-green">+1.58% за сессию</span>
+      </div>
+      <div class="price-cell">
+        <span class="price-label">🎯 Цель</span>
+        <span class="price-value target">$60–65</span>
+        <span class="price-pct pct-green">+7–16% потенциал</span>
+      </div>
+      <div class="price-cell">
+        <span class="price-label">🛑 Стоп-лосс</span>
+        <span class="price-value stop">$53.00</span>
+        <span class="price-pct pct-red">-5.2% риск</span>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="card-body">
+
+      <!-- CATALYSTS -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">🔥</span> Почему это интересно</div>
+        <div class="analysis-table">
+          <div style="padding:12px 16px;display:flex;flex-direction:column;gap:10px;">
+            <div class="catalyst-item">
+              <div class="catalyst-dot dot-green"></div>
+              <span>Ормузский пролив — горлышко мирового нефтяного рынка. Через него проходит <strong style="color:var(--text)">~20% всех морских поставок нефти</strong>. Любое обострение = нефть $100+.</span>
+            </div>
+            <div class="catalyst-item">
+              <div class="catalyst-dot dot-green"></div>
+              <span>XLE держит ExxonMobil (~24%) и Chevron (~18%). Оба являются прямыми бенефициарами роста цен на нефть. ETF мгновенно реагирует на нефтяные шоки.</span>
+            </div>
+            <div class="catalyst-item">
+              <div class="catalyst-dot dot-orange"></div>
+              <span><strong style="color:var(--orange)">Отток капитала -$727.95 млн</strong> за последнюю сессию — признак капитуляции слабых рук. При позитивном триггере это топливо для шорт-сквиза.</span>
+            </div>
+            <div class="catalyst-item">
+              <div class="catalyst-dot dot-red"></div>
+              <span><strong style="color:var(--red)">Против тренда:</strong> RSI, MACD и Fast Stochastic — все дают «медвежий сигнал». Это спекуляция на событии, а не следование тренду.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TECH -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">📊</span> Технический анализ</div>
+        <div class="analysis-table">
+          <div class="analysis-row">
+            <span class="analysis-key">📍 Поддержка 1</span>
+            <span class="analysis-val" style="color:var(--green)">$54.82–55.00</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">📍 Поддержка 2</span>
+            <span class="analysis-val">$53.00 (стоп)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">🎯 Сопротивление 1</span>
+            <span class="analysis-val" style="color:var(--yellow)">$57.00 (вход акцией)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">🎯 Сопротивление 2</span>
+            <span class="analysis-val" style="color:var(--yellow)">$60.00 (ключевая / OI колл)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">🎯 Цель 2</span>
+            <span class="analysis-val" style="color:var(--green)">$65.00 (зона крупного OI)</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">📉 RSI / MACD</span>
+            <div class="bar-wrap">
+              <div class="mini-bar"><div class="mini-bar-fill" style="width:35%;background:var(--red)"></div></div>
+              <span class="analysis-val" style="color:var(--red)">Медвежий сигнал</span>
+            </div>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">52-нед. диапазон</span>
+            <span class="analysis-val">$37.25 — $55.93</span>
+          </div>
+          <div class="analysis-row">
+            <span class="analysis-key">Позиция в диапазоне</span>
+            <span class="analysis-val" style="color:var(--orange)">У 52-нед. максимума</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDEA 1: LONG CALL -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">⚙️</span> Идея 1 — опцион (основная)</div>
+        <div class="trade-box">
+          <div class="trade-header">
+            <span class="trade-type type-call">🎯 LONG CALL</span>
+            <span class="trade-risk">Максимальное плечо · риск ограничен</span>
+          </div>
+          <div class="trade-rows">
+            <div class="trade-row"><span class="trade-key">Инструмент</span><span class="trade-val">XLE Call $60.00 · 6 марта 2026</span></div>
+            <div class="trade-row"><span class="trade-key">Экспирация</span><span class="trade-val">6 марта 2026 (~7 дней)</span></div>
+            <div class="trade-row"><span class="trade-key">Премия (стоимость)</span><span class="trade-val yellow">~$0.18–0.23 = $18–23 / контракт</span></div>
+            <div class="trade-row"><span class="trade-key">Break-even</span><span class="trade-val">$60.20 (+7.6% от текущей)</span></div>
+            <div class="trade-row"><span class="trade-key">Макс. убыток</span><span class="trade-val red">$18–23 (вся премия)</span></div>
+            <div class="trade-row"><span class="trade-key">При достижении $63</span><span class="trade-val green">~$280–320 / контракт (+1 300%)</span></div>
+            <hr class="divider">
+            <div class="trade-row"><span class="trade-key">⚠️ Срок очень короткий</span><span class="trade-val red">Временной распад убивает позицию быстро</span></div>
+            <div class="trade-row"><span class="trade-key">Не держать после</span><span class="trade-val orange">Продавать при первом движении к $58–59</span></div>
+            <div class="trade-row"><span class="trade-key">Размер позиции</span><span class="trade-val orange">2–3% от портфеля (не более)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDEA 2: BULL CALL SPREAD -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">📌</span> Идея 2 — опцион (консервативнее)</div>
+        <div class="trade-box">
+          <div class="trade-header">
+            <span class="trade-type type-spread">📊 BULL CALL SPREAD $57/$60</span>
+            <span class="trade-risk">Дешевле · меньше распад</span>
+          </div>
+          <div class="trade-rows">
+            <div class="trade-row"><span class="trade-key">Buy Call $57 (ask)</span><span class="trade-val">~$0.65–0.80</span></div>
+            <div class="trade-row"><span class="trade-key">Sell Call $60 (bid)</span><span class="trade-val">~$0.18–0.23</span></div>
+            <div class="trade-row"><span class="trade-key">Чистый дебет</span><span class="trade-val yellow">~$0.45–0.60 = $45–60 / контракт</span></div>
+            <div class="trade-row"><span class="trade-key">Break-even</span><span class="trade-val">$57.50–57.60</span></div>
+            <div class="trade-row"><span class="trade-key">Макс. прибыль (выше $60)</span><span class="trade-val green">~$240–255 / контракт (+400%)</span></div>
+            <div class="trade-row"><span class="trade-key">Макс. убыток</span><span class="trade-val red">$45–60 (дебет)</span></div>
+            <div class="trade-row"><span class="trade-key">Экспирация</span><span class="trade-val">6 марта 2026</span></div>
+            <hr class="divider">
+            <div class="trade-row"><span class="trade-key">Преимущество vs Long Call</span><span class="trade-val">Вдвое ниже стоимость, меньше временной распад</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDEA 3: STOCK -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">📌</span> Идея 3 — покупка ETF</div>
+        <div class="trade-box">
+          <div class="trade-header">
+            <span class="trade-type type-stock">📈 ETF</span>
+            <span class="trade-risk">Риск/профит ≈ 1 : 2.0</span>
+          </div>
+          <div class="trade-rows">
+            <div class="trade-row"><span class="trade-key">Вход</span><span class="trade-val">$55.92 (текущие) или закрепление выше $57</span></div>
+            <div class="trade-row"><span class="trade-key">Цель 1</span><span class="trade-val green">$60.00 (+7.3%)</span></div>
+            <div class="trade-row"><span class="trade-key">Цель 2</span><span class="trade-val green">$65.00 (+16.2%)</span></div>
+            <div class="trade-row"><span class="trade-key">Стоп</span><span class="trade-val red">$53.00 (ниже недавних минимумов)</span></div>
+            <div class="trade-row"><span class="trade-key">Горизонт</span><span class="trade-val">1–3 недели (событийная ставка)</span></div>
+            <hr class="divider">
+            <div class="trade-row"><span class="trade-key">На портфель $1k</span><span class="trade-val orange">~$20–30 (2–3% лимит)</span></div>
+            <div class="trade-row"><span class="trade-key">На портфель $5k</span><span class="trade-val orange">~$100–150 (2–3% лимит)</span></div>
+            <div class="trade-row"><span class="trade-key">⚠️ Не усредняй</span><span class="trade-val red">Против тренда усреднение убивает счёт</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLAIN WORDS -->
+      <div class="section">
+        <div class="section-title"><span class="section-icon">💬</span> Простыми словами</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;font-size:14px;color:var(--muted);line-height:1.65;">
+          XLE — это «корзина» крупнейших нефтяных компаний США: ExxonMobil, Chevron и другие. Если Ормузский пролив (через него идёт каждая пятая бочка нефти в мире) окажется заблокирован — нефть резко дорожает, и акции нефтяников взлетают вместе с ней. Мы не знаем, произойдёт ли это. Поэтому <strong style="color:var(--text)">не ставим всё</strong> — берём опцион за $18–23 или минимальную долю ETF. Худшее что случится: потеряем $18–23 на контракт. Лучшее: заработаем в 10–15 раз больше вложенного.
+        </div>
+      </div>
+
+      <!-- RISKS -->
+      <div class="risk-box">
+        <span class="risk-icon">⚠️</span>
+        <span>
+          <strong style="color:var(--text)">Геополитическая разрядка:</strong> дипломатия = мгновенное обнуление нефтяной премии. Используй жёсткий стоп $53.<br><br>
+          <strong style="color:var(--text)">Технический медвежий тренд:</strong> RSI, MACD и Stochastic против. Не усредняй позицию при падении. Если цена пробивает поддержку $54.80 — закрывай опционы немедленно, не жди экспирации.<br><br>
+          <strong style="color:var(--text)">Временной распад (опционы):</strong> 7 дней до экспирации — каждый день без движения съедает премию. Продавай при первом импульсе к $58–59, не жди $60.
+        </span>
+      </div>
+
+      <!-- TAX BOX -->
+      <div class="tax-box">
+        <span class="risk-icon">🧾</span>
+        <span>
+          <strong style="color:var(--yellow)">Налог для резидентов Португалии (IRS):</strong> прирост капитала облагается по ставке <strong style="color:var(--text)">28%</strong>. Учитывай это при расчёте итоговой доходности. В случае убытка — обязательно фиксируй его в декларации IRS: убыток сальдируется с прибылью по другим сделкам и снижает налогооблагаемую базу.
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    Данные проверены по состоянию на 27 февраля 2026. Цена закрытия XLE $55.92 (NYSE Arca). Это не является индивидуальной инвестиционной рекомендацией. Торговля на рынках сопряжена с риском потери капитала. Принимайте решения самостоятельно.
+  </div>
+
+</div>
+
+<!-- BOTTOM BACK NAV -->
+<nav style="background:#13161e;border-top:1px solid #252a38;padding:18px 20px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <span style="color:#6b7394;font-size:13px;">Хотите посмотреть другие идеи?</span>
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid #252a38;color:#6b7394;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;" onmouseover="this.style.borderColor='#00e599';this.style.color='#00e599'" onmouseout="this.style.borderColor='#252a38';this.style.color='#6b7394'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Вернуться на главную
+  </a>
+</nav>
+
+</body>
+</html>
