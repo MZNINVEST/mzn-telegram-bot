@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ормуз, «большая сделка» России и новый энергетический порядок | MZN INVEST</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root {
+  --white: #ffffff;
+  --bg: #f7f6f2;
+  --bg2: #efeee9;
+  --text: #1a1916;
+  --text-mid: #4a4843;
+  --text-light: #8a8780;
+  --gold: #b8922a;
+  --gold-bg: #fdf6e3;
+  --gold-border: rgba(184,146,42,0.25);
+  --red: #c0392b;
+  --red-bg: #fdf2f0;
+  --green: #1e7e4e;
+  --blue: #1a5fa8;
+  --border: #e2e0d8;
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-size:16px; line-height:1.75; overflow-x:hidden; }
+
+#progress { position:fixed; top:0; left:0; height:3px; width:0; background:var(--gold); z-index:1000; transition:width .1s; }
+
+nav { position:fixed; top:0; width:100%; background:rgba(247,246,242,0.94); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:0 48px; height:60px; display:flex; align-items:center; justify-content:space-between; z-index:100; }
+.nav-logo { font-family:'Unbounded',sans-serif; font-size:14px; font-weight:700; color:var(--text); letter-spacing:.05em; text-decoration:none; }
+.nav-meta { font-size:12px; color:var(--text-light); font-weight:500; }
+
+.hero { padding:120px 0 80px; background:var(--white); border-bottom:1px solid var(--border); }
+.hero-inner { max-width:820px; margin:0 auto; padding:0 48px; }
+.hero-tag { display:inline-flex; align-items:center; gap:8px; background:var(--gold-bg); border:1px solid var(--gold-border); border-radius:100px; padding:5px 14px; font-size:11px; font-weight:600; color:var(--gold); letter-spacing:.08em; text-transform:uppercase; margin-bottom:28px; }
+.hero-tag::before { content:''; width:6px; height:6px; background:var(--gold); border-radius:50%; animation:blink 1.5s infinite; }
+.hero-title { font-family:'Unbounded',sans-serif; font-size:clamp(24px,4vw,46px); font-weight:700; line-height:1.15; letter-spacing:-.02em; color:var(--text); margin-bottom:22px; }
+.hero-title span { color:var(--gold); }
+.hero-deck { font-size:17px; color:var(--text-mid); max-width:640px; margin-bottom:48px; line-height:1.7; }
+.hero-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+.hstat { background:var(--white); padding:22px 26px; display:flex; flex-direction:column; gap:6px; }
+.hstat-val { font-family:'Unbounded',sans-serif; font-size:26px; font-weight:700; color:var(--text); line-height:1; }
+.hstat-val.danger { color:var(--red); }
+.hstat-val.accent { color:var(--gold); }
+.hstat-label { font-size:12px; color:var(--text-light); font-weight:500; line-height:1.4; }
+
+.layout { max-width:820px; margin:0 auto; padding:0 48px; }
+
+.section { padding:72px 0 0; opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+.section.visible { opacity:1; transform:none; }
+
+.section-head { display:flex; align-items:center; gap:14px; margin-bottom:32px; }
+.section-num { font-family:'Unbounded',sans-serif; font-size:11px; font-weight:600; color:var(--text-light); letter-spacing:.1em; padding:4px 10px; background:var(--bg2); border-radius:4px; }
+.section-line { flex:1; height:1px; background:var(--border); }
+
+h2 { font-family:'Unbounded',sans-serif; font-size:clamp(19px,2.8vw,28px); font-weight:700; letter-spacing:-.02em; line-height:1.25; color:var(--text); margin-bottom:20px; }
+h2 em { color:var(--gold); font-style:normal; }
+h3 { font-family:'Unbounded',sans-serif; font-size:15px; font-weight:700; letter-spacing:-.01em; color:var(--text); margin:40px 0 12px; }
+p { color:var(--text-mid); margin-bottom:18px; font-size:15.5px; }
+strong { color:var(--text); font-weight:600; }
+
+.callout { padding:20px 24px; border-left:3px solid var(--gold); background:var(--gold-bg); border-radius:0 var(--radius) var(--radius) 0; margin:32px 0; font-size:15.5px; color:var(--text-mid); line-height:1.65; }
+.callout strong { color:var(--gold); }
+.callout.red { border-color:var(--red); background:var(--red-bg); }
+.callout.red strong { color:var(--red); }
+
+.stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:28px 0; }
+.stat-box { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; text-align:center; transition:border-color .2s, transform .2s; }
+.stat-box:hover { border-color:var(--gold-border); transform:translateY(-2px); }
+.stat-box .num { font-family:'Unbounded',sans-serif; font-size:28px; font-weight:700; color:var(--text); line-height:1; margin-bottom:8px; }
+.stat-box .num.red { color:var(--red); }
+.stat-box .num.gold { color:var(--gold); }
+.stat-box .num.blue { color:var(--blue); }
+.stat-box .num.green { color:var(--green); }
+.stat-box .lbl { font-size:12px; color:var(--text-light); font-weight:500; line-height:1.4; }
+
+.chart-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:28px; margin:28px 0; }
+.chart-title { font-family:'Unbounded',sans-serif; font-size:11px; font-weight:600; color:var(--text-light); letter-spacing:.05em; text-transform:uppercase; margin-bottom:20px; }
+.chart-card canvas { max-height:280px; }
+
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:24px 0; }
+.card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:22px 24px; transition:border-color .2s; }
+.card:hover { border-color:var(--gold-border); }
+.card-icon { font-size:24px; margin-bottom:10px; }
+.card h4 { font-family:'Unbounded',sans-serif; font-size:13px; font-weight:700; color:var(--text); margin-bottom:8px; letter-spacing:-.01em; }
+.card p { font-size:13.5px; color:var(--text-light); margin:0; line-height:1.6; }
+
+.timeline { margin:28px 0; position:relative; padding-left:28px; }
+.timeline::before { content:''; position:absolute; left:7px; top:6px; bottom:6px; width:1px; background:linear-gradient(to bottom, var(--gold), transparent); }
+.tl-item { position:relative; margin-bottom:28px; }
+.tl-dot { position:absolute; left:-25px; top:4px; width:12px; height:12px; border-radius:50%; background:var(--white); border:2px solid var(--gold); }
+.tl-tag { display:inline-block; font-size:10px; font-weight:700; color:var(--gold); text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px; }
+.tl-text { font-size:15px; color:var(--text-mid); line-height:1.6; }
+.tl-text strong { color:var(--text); }
+
+.impact-bars { margin:28px 0; display:flex; flex-direction:column; gap:10px; }
+.imp-row { display:flex; align-items:center; gap:14px; }
+.imp-label { font-size:12px; font-weight:600; color:var(--text-mid); width:120px; flex-shrink:0; text-align:right; }
+.imp-track { flex:1; height:10px; background:var(--bg2); border-radius:5px; overflow:hidden; }
+.imp-fill { height:100%; border-radius:5px; transition:width 1.6s cubic-bezier(.16,1,.3,1); }
+.imp-note { font-size:12px; color:var(--text-light); width:80px; flex-shrink:0; font-weight:500; }
+
+.dtable { width:100%; border-collapse:collapse; margin:24px 0; font-size:14px; }
+.dtable th { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-light); padding:10px 14px; text-align:left; border-bottom:2px solid var(--border); background:var(--bg2); }
+.dtable td { padding:13px 14px; border-bottom:1px solid var(--border); color:var(--text-mid); vertical-align:top; line-height:1.5; }
+.dtable tr:last-child td { border-bottom:none; }
+.dtable tr:hover td { background:var(--gold-bg); }
+.td-s { font-weight:600; color:var(--text); }
+.td-r { color:var(--red); font-weight:600; }
+
+.sep { height:1px; background:var(--border); margin:64px 0 0; }
+
+.course-box { background:var(--white); border:1px solid var(--border); border-radius:16px; overflow:hidden; margin:40px 0; }
+.course-box-head { background:linear-gradient(135deg,#1a1916 0%,#2d2b26 100%); padding:28px 32px 24px; }
+.course-box-head .eyebrow { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.12em; color:rgba(255,255,255,.4); margin-bottom:8px; }
+.course-box-head h3 { font-family:'Unbounded',sans-serif; font-size:18px; font-weight:700; color:#fff; margin:0; letter-spacing:-.01em; }
+.course-box-head .sub { margin-top:6px; font-size:13px; color:rgba(255,255,255,.45); line-height:1.5; }
+.course-modules { padding:24px 32px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.cmod { display:flex; gap:12px; align-items:flex-start; padding:14px 16px; border:1px solid var(--border); border-radius:10px; transition:border-color .2s, background .2s; }
+.cmod:hover { border-color:var(--gold-border); background:var(--gold-bg); }
+.cmod-icon { font-size:20px; flex-shrink:0; margin-top:1px; }
+.cmod-title { font-size:13px; font-weight:600; color:var(--text); margin-bottom:3px; }
+.cmod-desc { font-size:12px; color:var(--text-light); line-height:1.5; }
+
+.cta-section { margin-top:72px; background:#1a1916; padding:80px 0; }
+.cta-inner { max-width:680px; margin:0 auto; padding:0 48px; text-align:center; }
+.cta-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(184,146,42,.14); border:1px solid rgba(184,146,42,.3); border-radius:100px; padding:5px 16px; font-size:11px; font-weight:600; color:var(--gold); text-transform:uppercase; letter-spacing:.1em; margin-bottom:28px; }
+.cta-tag::before { content:''; width:5px; height:5px; background:var(--gold); border-radius:50%; animation:blink 1.5s infinite; }
+.cta-title { font-family:'Unbounded',sans-serif; font-size:clamp(20px,3.5vw,36px); font-weight:700; letter-spacing:-.02em; color:#fff; line-height:1.2; margin-bottom:18px; }
+.cta-title em { color:var(--gold); font-style:normal; }
+.cta-desc { font-size:15px; color:rgba(255,255,255,.45); line-height:1.7; margin-bottom:40px; }
+.cta-features { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:40px; text-align:left; }
+.cta-feat { display:flex; gap:10px; align-items:flex-start; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:10px; padding:14px 16px; font-size:13px; color:rgba(255,255,255,.55); line-height:1.5; }
+.feat-ico { font-size:16px; flex-shrink:0; margin-top:1px; }
+.cta-btn { display:inline-flex; align-items:center; gap:12px; background:var(--gold); color:#fff; font-family:'Inter',sans-serif; font-size:15px; font-weight:700; padding:18px 44px; border-radius:8px; text-decoration:none; letter-spacing:.01em; transition:transform .2s, box-shadow .2s, background .2s; box-shadow:0 4px 32px rgba(184,146,42,.4); }
+.cta-btn:hover { transform:translateY(-2px); box-shadow:0 8px 48px rgba(184,146,42,.55); background:#c9a84c; }
+.cta-arrow { font-size:17px; transition:transform .3s; }
+.cta-btn:hover .cta-arrow { transform:translateX(4px); }
+.cta-note { margin-top:16px; font-size:12px; color:rgba(255,255,255,.3); }
+.cta-note span { color:rgba(184,146,42,.7); }
+
+footer { background:var(--white); border-top:1px solid var(--border); padding:28px 48px; display:flex; justify-content:space-between; align-items:center; }
+.footer-brand { font-family:'Unbounded',sans-serif; font-size:13px; font-weight:700; color:var(--text); }
+.footer-copy { font-size:12px; color:var(--text-light); }
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+@media(max-width:700px){
+  nav,footer{padding-left:20px;padding-right:20px;}
+  .hero-inner,.layout,.cta-inner{padding-left:20px;padding-right:20px;}
+  .hero-stats,.stat-grid{grid-template-columns:1fr 1fr;}
+  .grid2,.course-modules,.cta-features{grid-template-columns:1fr;}
+  .dtable{font-size:12px;}
+  .dtable th,.dtable td{padding:8px 8px;}
+  .imp-label{width:80px;font-size:11px;}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<nav>
+  <a href="#" class="nav-logo">MZN INVEST</a>
+  <span class="nav-meta">Аналитика · Март 2026</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Геополитика нефти</div>
+    <h1 class="hero-title">Ормузский пролив,<br>«большая сделка» России<br>и <span>новый энергетический порядок</span></h1>
+    <p class="hero-deck">Как угроза блокировки 20 млн баррелей в сутки меняет рынок нефти, доллар, производство чипов — и что это значит для вашего портфеля прямо сейчас.</p>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-val accent">20 млн</div>
+        <div class="hstat-label">баррелей/сутки через Ормуз — 20% мирового потребления нефти</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val danger">$100–200</div>
+        <div class="hstat-label">прогноз цены нефти при длительной блокаде пролива</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val">$13 трлн</div>
+        <div class="hstat-label">стоимость обсуждаемого ресурсного пакета Россия–США</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+
+<div class="section" id="s1">
+  <div class="section-head"><div class="section-num">01</div><div class="section-line"></div></div>
+  <h2>Ормуз: <em>горлышко</em>, от которого зависит мировая экономика</h2>
+  <p>В Q1 2025 через Ормуз проходило <strong>20,1 млн баррелей нефти и нефтепродуктов в сутки</strong> — 14,2 млн из которых составляла сырая нефть. Это каждая четвёртая тонна нефти, перевозимая морем на планете.</p>
+  <div class="stat-grid">
+    <div class="stat-box"><div class="num gold">20,1 млн</div><div class="lbl">барр./сут. через Ормуз, Q1 2025</div></div>
+    <div class="stat-box"><div class="num">104 млн</div><div class="lbl">мировой спрос на нефть в 2025</div></div>
+    <div class="stat-box"><div class="num red">$200</div><div class="lbl">прогноз нефти при полной блокаде</div></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Куда идёт ормузская нефть — крупнейшие получатели (млн барр./сут.)</div>
+    <canvas id="chartHormuz"></canvas>
+  </div>
+  <div class="callout red">
+    <strong>Ключевой факт:</strong> Блокировка Ормуза — это не снижение предложения, а резкий дефицит. При выпадении 15–20 млн барр./сут. мировой рынок мгновенно переходит от «хорошо обеспеченного» к «хронически дефицитному». Стратегические запасы G7 (300–400 млн барр.) покрывают от 15 до 30 дней реального дефицита.
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <div class="section-head"><div class="section-num">02</div><div class="section-line"></div></div>
+  <h2>Стратегические резервы IEA: буфер, <em>а не решение</em></h2>
+  <p>IEA держит ~<strong>1,2 млрд баррелей</strong> в государственных резервах и ещё 0,6 млрд в обязательных коммерческих запасах. G7 обсуждает координированный выпуск 300–400 млн баррелей. Смотрим на цифры честно.</p>
+  <div class="chart-card">
+    <div class="chart-title">Резервы IEA vs масштаб возможного дефицита (млн баррелей)</div>
+    <canvas id="chartReserves"></canvas>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-icon">🛡️</div>
+      <h4>США как «энергетический страховщик»</h4>
+      <p>СПГ в Европу, военное присутствие в Заливе, координация с IEA. Цель — удержать союзников и не допустить ценового шока, который ускорил бы дедолларизацию.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h4>Двойственность интересов</h4>
+      <p>Высокие цены выгодны сланцевым компаниям, но бьют по инфляции и политическим рейтингам. Именно поэтому Вашингтон одновременно и давит, и сдерживает эскалацию.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="s3">
+  <div class="section-head"><div class="section-num">03</div><div class="section-line"></div></div>
+  <h2>Россия: <em>«ресурсный переключатель»</em> между блоками</h2>
+  <p>В экспертных материалах фигурирует пакет переговорных позиций между Россией и США на <strong>~$12–13 трлн</strong>. Это не ратифицированный договор, но логика сделки прозрачна.</p>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-tag">Нефть и газ</div><p class="tl-text"><strong>Арктика.</strong> Совместная разработка месторождений с западными технологиями. Россия — второй по запасам игрок, нуждающийся в капитале и оборудовании.</p></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-tag">Редкоземельные металлы</div><p class="tl-text"><strong>Сибирь.</strong> Стратегические металлы для зелёной энергетики и производства чипов. Сейчас Китай доминирует — Россия может стать вторым полюсом предложения.</p></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-tag">Инфраструктура</div><p class="tl-text"><strong>Берингов коридор.</strong> Физическая связь Евразии и Северной Америки — альтернатива китайскому «Поясу и пути» и обход Ормуза для США.</p></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-tag">Санкции</div><p class="tl-text"><strong>Ресурсы в обмен на рынки.</strong> Смягчение санкционного режима в обмен на доступ западного капитала к российским проектам — и расчёты в долларах.</p></div>
+  </div>
+  <div class="callout">
+    <strong>Валютное измерение:</strong> Любой крупный пакет с Россией, номинированный в долларах, объективно укрепляет долларовую систему и осложняет Китаю формирование альтернативной финансовой архитектуры. «Большая сделка» — это не только про нефть, но и про то, кто контролирует денежные потоки за сырьё следующие 20 лет.
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <div class="section-head"><div class="section-num">04</div><div class="section-line"></div></div>
+  <h2>Три конкурирующих блока, <em>а не один монополист</em></h2>
+  <p>Тезис о едином «хозяине нефти» не совпадает с реальностью. Мир движется к системе конкурирующих блоков с пересекающимися, но разными интересами.</p>
+  <div class="chart-card">
+    <div class="chart-title">Баланс сил: ресурсы, финансы, технологии по блокам (0–100)</div>
+    <canvas id="chartBlocks"></canvas>
+  </div>
+  <div class="grid2">
+    <div class="card"><div class="card-icon">🌏</div><h4>Залив + Азия</h4><p>Китай получает 5,4 млн барр./сут., Индия и Япония — ещё по 1,6–2,1 млн. Именно они несут максимальный ущерб от блокады Ормуза.</p></div>
+    <div class="card"><div class="card-icon">🌐</div><h4>Северный Атлантик</h4><p>США + Канада + Норвегия. Потенциально — российские ресурсы в рамках «большой сделки». Ставка на внутреннюю добычу и СПГ-экспорт.</p></div>
+    <div class="card"><div class="card-icon">⚖️</div><h4>Россия — «балансир»</h4><p>Может усилить как западный, так и восточный контур. Именно это делает её стратегической переговорной позицией, а не просто поставщиком.</p></div>
+    <div class="card"><div class="card-icon">🌱</div><h4>Новые полюса</h4><p>Бразилия, Африка, Латинская Америка — встраиваются в новые цепочки поставок, не зависящие от Ормуза и западных санкций.</p></div>
+  </div>
+</div>
+
+<div class="section" id="s5">
+  <div class="section-head"><div class="section-num">05</div><div class="section-line"></div></div>
+  <h2>Волновой эффект: нефть → удобрения → <em>еда → чипы → AI</em></h2>
+  <p>Между скачком нефти и ростом цен в магазинах — временной лаг от нескольких месяцев до двух лет. Именно поэтому инфляция после энергетического шока всегда приходит с опозданием.</p>
+  <div class="impact-bars" id="impBars">
+    <div class="imp-row"><div class="imp-label">Топливо / АЗС</div><div class="imp-track"><div class="imp-fill" style="width:0%" data-w="92%" data-bg="#b8922a"></div></div><div class="imp-note">1–3 мес.</div></div>
+    <div class="imp-row"><div class="imp-label">Удобрения</div><div class="imp-track"><div class="imp-fill" style="width:0%" data-w="78%" data-bg="#c0392b"></div></div><div class="imp-note">3–6 мес.</div></div>
+    <div class="imp-row"><div class="imp-label">Продукты питания</div><div class="imp-track"><div class="imp-fill" style="width:0%" data-w="64%" data-bg="#d35400"></div></div><div class="imp-note">6–12 мес.</div></div>
+    <div class="imp-row"><div class="imp-label">Чипы / AI</div><div class="imp-track"><div class="imp-fill" style="width:0%" data-w="52%" data-bg="#1a5fa8"></div></div><div class="imp-note">12–18 мес.</div></div>
+    <div class="imp-row"><div class="imp-label">Базовая инфляция</div><div class="imp-track"><div class="imp-fill" style="width:0%" data-w="42%" data-bg="#1e7e4e"></div></div><div class="imp-note">до 2 лет</div></div>
+  </div>
+  <h3>TSMC и Samsung: LNG + гелий = проблема</h3>
+  <p>Оба производителя — крупнейшие потребители электроэнергии в своих странах. LNG-шок напрямую поднимает их операционные затраты. Плюс гелий из Катара: без него невозможна литография. Итог — AI-чипы дорожают через 12–18 месяцев.</p>
+  <table class="dtable">
+    <thead><tr><th>Фактор</th><th>TSMC (Тайвань)</th><th>Samsung (Корея)</th><th>Итог для рынка</th></tr></thead>
+    <tbody>
+      <tr><td class="td-s">Зависимость от LNG</td><td>Крупнейший пром. потребитель электроэнергии в стране</td><td>Кластеры завязаны на газовую генерацию</td><td class="td-r">Рост операционных затрат</td></tr>
+      <tr><td class="td-s">Гелий из Катара</td><td>Критичен для литографии и плазменных процессов</td><td>Те же требования к инертным газам</td><td class="td-r">Риск дефицита, простои</td></tr>
+      <tr><td class="td-s">Временной лаг</td><td>Удар по себестоимости через квартал</td><td>Аналогичный лаг, затем рост цен контрактов</td><td class="td-r">AI-чипы дороже через 1–1,5 года</td></tr>
+      <tr><td class="td-s">Data Centers / AI</td><td colspan="2">Рост стоимости энергии увеличивает TCO AI-кластеров, снижает окупаемость</td><td class="td-r">Дороже обучение и инференс ИИ</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section" id="s6">
+  <div class="section-head"><div class="section-num">06</div><div class="section-line"></div></div>
+  <h2>Три сценария: <em>нефть через 12 месяцев</em></h2>
+  <div class="chart-card">
+    <div class="chart-title">Прогноз цены нефти Brent при трёх исходах конфликта ($/barrel)</div>
+    <canvas id="chartScenario"></canvas>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-box"><div class="num green" style="font-size:22px">$65–75</div><div class="lbl">Быстрая де-эскалация.<br>Ормуз открыт через 1 мес.</div></div>
+    <div class="stat-box"><div class="num gold" style="font-size:22px">$85–110</div><div class="lbl">Базовый сценарий.<br>Частичный кризис 3–6 мес.</div></div>
+    <div class="stat-box"><div class="num red" style="font-size:22px">$150–200</div><div class="lbl">Длительная блокада.<br>60+ дней закрытия Ормуза</div></div>
+  </div>
+  <div class="callout">
+    <strong>Что важно понять инвестору:</strong> При любом из сценариев рынок уже сигнализирует о структурном переломе. Даже возврат к $75–80 не означает возврата к прежнему «нефтяному миру» — архитектура поставок перестраивается, и новые маршруты требуют новых премий за риск. Это меняет оценку активов в энергетике, удобрениях и технологиях.
+  </div>
+</div>
+
+<!-- COURSE SECTION -->
+<div class="section" id="s7">
+  <div class="sep"></div>
+  <div style="height:64px"></div>
+  <div class="course-box">
+    <div class="course-box-head">
+      <div class="eyebrow">Программа обучения</div>
+      <h3>«Мой первый капитал» — что мы разбираем</h3>
+      <div class="sub">7 модулей от риск-профиля до первой покупки. Конкретные числа, реальные брокеры, налоговые схемы под вашу страну.</div>
+    </div>
+    <div class="course-modules">
+      <div class="cmod"><div class="cmod-icon">🎯</div><div><div class="cmod-title">Риск-профиль и финансовая цель</div><div class="cmod-desc">Переводим мечту в цифры. Консерватор, умеренный, агрессивный — какая стратегия и портфель подходят именно вам.</div></div></div>
+      <div class="cmod"><div class="cmod-icon">🏦</div><div><div class="cmod-title">Брокер: IBKR, Freedom, Trading 212</div><div class="cmod-desc">Сравнение по комиссиям, страховке и доступности. Схема перевода для украинцев через Wise/USDT → SEPA.</div></div></div>
+      <div class="cmod"><div class="cmod-icon">📊</div><div><div class="cmod-title">ETF: Acc vs Dist — разница в $4 000</div><div class="cmod-desc">На дистанции 20 лет аккумулирующий ETF (VUAA, VWCE, SWRD) даёт на ~$4 000 больше с каждых $10 000 вложений из-за налоговой отсрочки.</div></div></div>
+      <div class="cmod"><div class="cmod-icon">💰</div><div><div class="cmod-title">Налоги и W-8BEN</div><div class="cmod-desc">Форма W-8BEN снижает налог на дивиденды США с 30% до 15%. Ставки по странам: Украина 18%+5%, Польша 19%, Португалия 28%.</div></div></div>
+      <div class="cmod"><div class="cmod-icon">🔍</div><div><div class="cmod-title">Алгоритм «Светофор»</div><div class="cmod-desc">Простой фильтр перед покупкой: тренд, RSI как градусник рынка, уровни поддержки и сопротивления.</div></div></div>
+      <div class="cmod"><div class="cmod-icon">🧮</div><div><div class="cmod-title">Сложный процент и сценарии</div><div class="cmod-desc">€300/мес. при 10% годовых: старт сейчас — €67 000 через 20 лет, старт через 5 лет — €40 000. Разница в €27 000 — цена промедления.</div></div></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-tag">Предзапись открыта</div>
+    <h2 class="cta-title">Программа<br><em>«Мой первый капитал»</em></h2>
+    <p class="cta-desc">7 модулей, от риск-профиля до первой покупки. Конкретные цифры, реальные брокеры, налоговые схемы под страну проживания — без воды и общих слов.</p>
+    <div class="cta-features">
+      <div class="cta-feat"><div class="feat-ico">📈</div><div>Как читать рынок во время геополитических кризисов</div></div>
+      <div class="cta-feat"><div class="feat-ico">🌍</div><div>Брокеры для украинцев в Европе и за её пределами</div></div>
+      <div class="cta-feat"><div class="feat-ico">🧾</div><div>Налоги: W-8BEN, ACC vs DIST, прирост капитала</div></div>
+      <div class="cta-feat"><div class="feat-ico">📱</div><div>Закрытое сообщество и разборы сделок в реальном времени</div></div>
+    </div>
+    <a href="https://t.me/myfirstcapital_bot?start=69a5767d4e74fe2ca60e04bc" class="cta-btn" target="_blank" rel="noopener">
+      Записаться в предзапись
+      <span class="cta-arrow">→</span>
+    </a>
+    <p class="cta-note"><span>⚡ Цена предзаписи ниже финальной</span> · Ограниченное количество мест</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">MZN INVEST</div>
+  <div class="footer-copy">Аналитический материал, не является инвестиционной рекомендацией. © 2026</div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  const s = document.documentElement.scrollTop || document.body.scrollTop;
+  const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  document.getElementById('progress').style.width = (s / h * 100) + '%';
+});
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.section').forEach(el => obs.observe(el));
+
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.imp-fill').forEach(b => {
+        b.style.background = b.dataset.bg;
+        setTimeout(() => b.style.width = b.dataset.w, 150);
+      });
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+const impEl = document.getElementById('impBars');
+if (impEl) barObs.observe(impEl);
+
+Chart.defaults.font.family = 'Inter';
+const grid = { color: '#e2e0d8' };
+const tick = { color: '#8a8780', font: { size: 11 } };
+const tip = { backgroundColor:'#fff', borderColor:'#e2e0d8', borderWidth:1, titleColor:'#1a1916', bodyColor:'#4a4843', padding:12, cornerRadius:8 };
+
+new Chart(document.getElementById('chartHormuz'), {
+  type: 'bar',
+  data: {
+    labels: ['Китай','Индия','Юж. Корея','Япония','Прочие','США'],
+    datasets: [{ label:'млн барр./сут', data:[5.4,2.1,1.8,1.6,7.4,0.3], backgroundColor:['#c0392b','#b8922a','#1a5fa8','#1e7e4e','#c8c5bf','#4a4843'], borderRadius:6, borderWidth:0 }]
+  },
+  options: {
+    indexAxis:'y',
+    plugins:{ legend:{display:false}, tooltip:{...tip, callbacks:{label:c=>` ${c.raw} млн барр./сут`}} },
+    scales:{ x:{grid,ticks:tick}, y:{grid:{display:false},ticks:tick} }
+  }
+});
+
+new Chart(document.getElementById('chartReserves'), {
+  type:'bar',
+  data: {
+    labels:['Госрезервы IEA','Комм. запасы','Выпуск G7','Дефицит 15 мбд×90','Дефицит 20 мбд×90'],
+    datasets:[{ data:[1200,600,350,1350,1800], backgroundColor:['#1e7e4e','#1a5fa8','#b8922a','rgba(192,57,43,0.45)','#c0392b'], borderRadius:6, borderWidth:0 }]
+  },
+  options: {
+    plugins:{ legend:{display:false}, tooltip:{...tip, callbacks:{label:c=>` ${c.raw} млн барр.`}} },
+    scales:{ x:{grid:{display:false},ticks:tick}, y:{grid,ticks:tick} }
+  }
+});
+
+new Chart(document.getElementById('chartBlocks'), {
+  type:'radar',
+  data: {
+    labels:['Нефть','Газ / LNG','Редкозём.','Финансы','Военный','Технологии'],
+    datasets:[
+      { label:'США + Запад', data:[85,75,40,95,90,95], backgroundColor:'rgba(184,146,42,0.08)', borderColor:'#b8922a', pointBackgroundColor:'#b8922a', borderWidth:2 },
+      { label:'Китай + BRICS', data:[70,60,95,70,80,80], backgroundColor:'rgba(192,57,43,0.08)', borderColor:'#c0392b', pointBackgroundColor:'#c0392b', borderWidth:2 },
+      { label:'Россия', data:[90,95,65,30,85,45], backgroundColor:'rgba(26,95,168,0.08)', borderColor:'#1a5fa8', pointBackgroundColor:'#1a5fa8', borderWidth:2 },
+    ]
+  },
+  options: {
+    plugins:{ legend:{labels:{boxWidth:14,font:{size:11}}}, tooltip:tip },
+    scales:{ r:{ ticks:{backdropColor:'transparent',font:{size:9},color:'#8a8780'}, grid:{color:'#e2e0d8'}, pointLabels:{font:{size:11,family:'Inter'},color:'#4a4843'}, angleLines:{color:'#e2e0d8'}, suggestedMin:0, suggestedMax:100 } }
+  }
+});
+
+new Chart(document.getElementById('chartScenario'), {
+  type:'line',
+  data: {
+    labels:['Сейчас','+ 1 мес.','+ 3 мес.','+ 6 мес.','+ 9 мес.','+ 12 мес.'],
+    datasets:[
+      { label:'Де-эскалация', data:[95,82,72,68,70,72], borderColor:'#1e7e4e', backgroundColor:'rgba(30,126,78,0.04)', borderWidth:2, pointRadius:4, fill:true, tension:0.4 },
+      { label:'Базовый', data:[95,104,110,100,92,85], borderColor:'#b8922a', backgroundColor:'rgba(184,146,42,0.05)', borderWidth:2.5, pointRadius:5, fill:true, tension:0.4 },
+      { label:'Блокада 60+ дней', data:[95,130,165,185,200,160], borderColor:'#c0392b', backgroundColor:'rgba(192,57,43,0.04)', borderWidth:2, pointRadius:4, borderDash:[5,3], fill:true, tension:0.4 },
+    ]
+  },
+  options: {
+    plugins:{ legend:{labels:{boxWidth:14,font:{size:11}}}, tooltip:{...tip, callbacks:{label:c=>` $${c.raw} /barrel`}} },
+    scales:{ x:{grid,ticks:tick}, y:{grid,ticks:{...tick, callback:v=>`$${v}`}} }
+  }
+});
+</script>
+</body>
+</html>
