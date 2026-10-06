@@ -206,42 +206,41 @@
       <div class="rating-badge">📈 Buy the Dip</div>
     </div>
     <div class="price-row">
-      <div class="price-current">$102.50</div>
-      <div class="price-change">+35% апсайд</div>
+      <div class="price-current">$205.00</div>
+      <div class="price-change">+40% апсайд</div>
     </div>
     <div class="price-target-row">
-      <div class="pt-chip">Консенсус-цель: <span>$138</span></div>
-      <div class="pt-chip">Street-High: <span>$180</span></div>
-      <div class="pt-chip">BofA: <span>$155</span></div>
-      <div class="pt-chip">Аналитиков: <span>36 (28 Buy)</span></div>
+      <div class="pt-chip">Консенсус-цель: <span>$288</span></div>
+      <div class="pt-chip">Street-High: <span>$380</span></div>
+      <div class="pt-chip">Аналитиков: <span>53</span></div>
     </div>
   </div>
 
   <div class="thesis">
     <div class="section-title">Инвестиционный тезис</div>
     <ul class="thesis-points">
-      <li>AMD торгуется на многолетних минимумах P/E при рекордном росте AI-выручки: Data Center +69% г/г в Q4 2025 до $3.9 млрд — MI300X набирает заказы.</li>
+      <li>Рекордный Q4 2025: выручка $10.3 млрд (+34% г/г), Data Center — рекордные $5.4 млрд (+39% г/г) на спросе на EPYC и Instinct. Гайденс на Q1 2026 — ~$9.8 млрд (+32% г/г). Рынок отреагировал продажей: −17% за день после отчёта — это и создаёт точку входа.</li>
       <li>Конкурент NVDA по GPU: AMD выигрывает от диверсификации клиентов — Microsoft, Meta и Google добавляют AMD как альтернативу во избежание монополии NVDA.</li>
-      <li>Instinct MI350 и MI400 (roadmap 2026) — продолжение борьбы за AI-рынок при росте экосистемы ROCm. Если NVDA растёт, AMD растёт вдвойне.</li>
-      <li>Технически: акция на поддержке $95–100 после сильного нисходящего тренда — классический уровень для входа при улучшении сентимента AI.</li>
-      <li>Katализаторы: отчёт Q1 2026 (апрель), анонс новых GPU на GTC-конкурентах, возможная сделка в AI-инфраструктуре.</li>
+      <li>MI350 уже в продажах и тянет Data Center. Следующий шаг — MI400 и стоечное решение Helios во 2П 2026, плюс первая фаза контракта с OpenAI (1 ГВт из 6 ГВт) во 2П 2026.</li>
+      <li>Технически: после пика ~$267 акция откатилась в зону $190–200 — минимумы февраля. Вход около $205 — у нижней границы диапазона.</li>
+      <li>Катализаторы: отчёт Q1 2026 (начало мая), анонс новых GPU на GTC-конкурентах, возможная сделка в AI-инфраструктуре.</li>
     </ul>
   </div>
 
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-label">Цена сейчас</div>
-      <div class="stat-value">$102.50</div>
+      <div class="stat-value">$205.00</div>
       <div class="stat-sub">25 февр. 2026</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Консенсус PT</div>
-      <div class="stat-value green">$138</div>
-      <div class="stat-sub">+34.6% upside</div>
+      <div class="stat-value green">$288</div>
+      <div class="stat-sub">+40.5% upside</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Street-High PT</div>
-      <div class="stat-value purple">$180</div>
+      <div class="stat-value purple">$380</div>
       <div class="stat-sub">Оптимистичный</div>
     </div>
     <div class="stat-card">
@@ -260,13 +259,13 @@
     <div id="tab-bcs" class="tab-panel active">
       <div class="calc-card">
         <div class="calc-title">Bull Call Spread</div>
-        <div class="calc-desc">Покупаем Call с более низким страйком, продаём Call с более высоким. Ограниченный риск, умеренный профит. Идеально для асимметричной ставки на рост AMD.</div>
+        <div class="calc-desc">Покупаем Call с более низким страйком, продаём Call с более высоким. Ограниченный риск, умеренный профит. Идеально для асимметричной ставки на рост AMD. Премии — расчётные (экспирация июнь 2026, IV ~57%), сверяйте с котировками брокера.</div>
         <div class="inputs-grid">
-          <div class="inp-group"><label>Текущая цена ($)</label><input type="number" id="bcs-spot" value="102.50" step="0.5" oninput="calcBCS()"></div>
-          <div class="inp-group"><label>Long Call страйк ($)</label><input type="number" id="bcs-k1" value="105" step="1" oninput="calcBCS()"></div>
-          <div class="inp-group"><label>Long Call премия ($)</label><input type="number" id="bcs-p1" value="4.20" step="0.1" oninput="calcBCS()"></div>
-          <div class="inp-group"><label>Short Call страйк ($)</label><input type="number" id="bcs-k2" value="130" step="1" oninput="calcBCS()"></div>
-          <div class="inp-group"><label>Short Call премия ($)</label><input type="number" id="bcs-p2" value="1.10" step="0.1" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Текущая цена ($)</label><input type="number" id="bcs-spot" value="205" step="0.5" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Long Call страйк ($)</label><input type="number" id="bcs-k1" value="210" step="1" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Long Call премия ($)</label><input type="number" id="bcs-p1" value="24.80" step="0.1" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Short Call страйк ($)</label><input type="number" id="bcs-k2" value="260" step="1" oninput="calcBCS()"></div>
+          <div class="inp-group"><label>Short Call премия ($)</label><input type="number" id="bcs-p2" value="8.60" step="0.1" oninput="calcBCS()"></div>
           <div class="inp-group"><label>Кол-во спредов</label><input type="number" id="bcs-qty" value="1" min="1" step="1" oninput="calcBCS()"></div>
         </div>
         <button class="calc-btn" onclick="calcBCS()">Рассчитать</button>
@@ -286,12 +285,12 @@
         <div class="calc-title">Покупка акции</div>
         <div class="calc-desc">Простая покупка акции с расчётом прибыли при достижении целевых уровней аналитиков. Без плеча, без временного ограничения.</div>
         <div class="inputs-grid">
-          <div class="inp-group"><label>Цена входа ($)</label><input type="number" id="st-entry" value="102.50" step="0.5" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Цена входа ($)</label><input type="number" id="st-entry" value="205" step="0.5" oninput="calcStock()"></div>
           <div class="inp-group"><label>Кол-во акций</label><input type="number" id="st-qty" value="10" min="1" step="1" oninput="calcStock()"></div>
-          <div class="inp-group"><label>Цель #1 — Консенсус ($)</label><input type="number" id="st-t1" value="138" step="1" oninput="calcStock()"></div>
-          <div class="inp-group"><label>Цель #2 — Bullish ($)</label><input type="number" id="st-t2" value="155" step="1" oninput="calcStock()"></div>
-          <div class="inp-group"><label>Цель #3 — Street-High ($)</label><input type="number" id="st-t3" value="180" step="1" oninput="calcStock()"></div>
-          <div class="inp-group"><label>Стоп-лосс ($)</label><input type="number" id="st-stop" value="88" step="1" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Цель #1 — Консенсус ($)</label><input type="number" id="st-t1" value="288" step="1" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Цель #2 — Bullish ($)</label><input type="number" id="st-t2" value="330" step="1" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Цель #3 — Street-High ($)</label><input type="number" id="st-t3" value="380" step="1" oninput="calcStock()"></div>
+          <div class="inp-group"><label>Стоп-лосс ($)</label><input type="number" id="st-stop" value="175" step="1" oninput="calcStock()"></div>
         </div>
         <button class="calc-btn" onclick="calcStock()">Рассчитать</button>
         <div class="results-grid">
@@ -308,7 +307,7 @@
 
   <div class="risk-section">
     <div class="section-title">Ключевые риски</div>
-    <div class="risk-row"><div class="risk-name">Снижение темпов роста AI Data Center (MI300X)</div><div class="risk-level"><span class="risk-dot" style="background:var(--red)"></span>Высокий</div></div>
+    <div class="risk-row"><div class="risk-name">Снижение темпов роста AI Data Center (MI350/MI400)</div><div class="risk-level"><span class="risk-dot" style="background:var(--red)"></span>Высокий</div></div>
     <div class="risk-row"><div class="risk-name">Давление со стороны NVDA (доминирование в AI GPU)</div><div class="risk-level"><span class="risk-dot" style="background:var(--yellow)"></span>Средний</div></div>
     <div class="risk-row"><div class="risk-name">Слабость PC/Gaming сегмента (Ryzen, RX)</div><div class="risk-level"><span class="risk-dot" style="background:var(--yellow)"></span>Средний</div></div>
     <div class="risk-row"><div class="risk-name">Задержка перехода клиентов с CUDA на ROCm</div><div class="risk-level"><span class="risk-dot" style="background:var(--yellow)"></span>Средний</div></div>
